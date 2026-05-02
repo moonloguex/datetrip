@@ -19,7 +19,7 @@ export async function Header() {
         <nav className="flex items-center gap-3">
           {session?.user ? (
             <>
-              <Button render={<Link href="/trips/new" />} size="sm">
+              <Button render={<Link href="/trips/new" />} size="sm" nativeButton={false}>
                 + 새 코스
               </Button>
               <UserMenu
@@ -32,7 +32,7 @@ export async function Header() {
               />
             </>
           ) : (
-            <Button render={<Link href="/login" />} size="sm" variant="outline">
+            <Button render={<Link href="/login" />} size="sm" variant="outline" nativeButton={false}>
               로그인
             </Button>
           )}

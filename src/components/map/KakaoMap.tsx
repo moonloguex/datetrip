@@ -8,13 +8,13 @@
 
 import { useEffect, useRef, useState } from "react"
 
-type Props = {
+type Props = Readonly<{
   // 초기 중심 좌표. 기본값은 서울 시청.
   initialCenter?: { lat: number; lng: number }
   // 초기 줌 레벨 (1=최대 확대, 14=최대 축소). 기본값 6 = 서울 전체가 보이는 정도.
   initialLevel?: number
   className?: string
-}
+}>
 
 export function KakaoMap({
   initialCenter = { lat: 37.5665, lng: 126.978 },
@@ -59,7 +59,7 @@ export function KakaoMap({
   }, [isReady, initialCenter.lat, initialCenter.lng, initialLevel])
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative w-full ${className}`}>
       <div
         ref={containerRef}
         className="h-full w-full"

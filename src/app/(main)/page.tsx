@@ -42,9 +42,11 @@ function LandingView() {
 
 function ExploreView() {
   return (
-    <div className="mx-auto max-w-7xl space-y-4 px-6 py-6">
-      <MapFilterBar />
-      <KakaoMap className="h-[calc(100vh-12rem)] overflow-hidden rounded-lg border" />
+    <div className="relative h-[calc(100vh-4rem)] w-full">
+      <KakaoMap className="h-full w-full" />
+      <div className="absolute left-4 top-4 z-10">
+        <MapFilterBar />
+      </div>
     </div>
   )
 }

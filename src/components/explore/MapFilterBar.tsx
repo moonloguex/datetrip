@@ -15,7 +15,7 @@ export function MapFilterBar() {
   const [showMineOnly, setShowMineOnly] = useState(false)
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center gap-2 rounded-full border bg-background/95 p-1.5 shadow-md backdrop-blur-sm">
       <button
         type="button"
         onClick={() => setShowMineOnly((v) => !v)}

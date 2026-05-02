@@ -5,7 +5,7 @@
 import { auth } from "@/auth"
 import { LoginButtons } from "@/components/auth/LoginButtons"
 import { MapFilterBar } from "@/components/explore/MapFilterBar"
-import { MapPlaceholder } from "@/components/explore/MapPlaceholder"
+import { KakaoMap } from "@/components/map/KakaoMap"
 
 export default async function HomePage() {
   const session = await auth()
@@ -44,7 +44,7 @@ function ExploreView() {
   return (
     <div className="mx-auto max-w-7xl space-y-4 px-6 py-6">
       <MapFilterBar />
-      <MapPlaceholder />
+      <KakaoMap className="h-[calc(100vh-12rem)] overflow-hidden rounded-lg border" />
     </div>
   )
 }

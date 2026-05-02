@@ -1,10 +1,11 @@
 import { Header } from "@/components/common/Header"
+import { KakaoMapLoader } from "@/components/map/KakaoMapLoader"
 
 // (main) 그룹: 헤더가 있는 일반 페이지용 레이아웃.
 // 괄호 라우트 그룹은 URL에 영향을 주지 않음.
 //
-// 주의: 홈 페이지는 지도 위주의 화면이라 max-w 제약이 답답할 수 있음.
-// 그래서 padding은 페이지 단위에서 직접 제어하고, 여기서는 최소한의 wrapper만 둠.
+// KakaoMapLoader를 layout에 두는 이유:
+// 사용자가 홈 → 다른 페이지 → 홈으로 이동할 때 SDK가 매번 다시 로드되지 않게 하려고.
 
 export default function MainLayout({
   children,
@@ -15,6 +16,7 @@ export default function MainLayout({
     <>
       <Header />
       {children}
+      <KakaoMapLoader />
     </>
   )
 }

@@ -7,7 +7,7 @@
 - 프레임워크: Next.js 14+ (App Router, TypeScript)
 - 스타일링: Tailwind CSS + shadcn/ui
 - DB: PostgreSQL (Neon 호스팅)
-- ORM: Prisma
+- ORM: Prisma 6 (output: src/generated/prisma)
 - 인증: NextAuth.js (Auth.js v5) ─ 카카오 + 구글 OAuth
 - 지도: 카카오맵 JavaScript SDK + 카카오 로컬 REST API
 - 배포: Vercel
@@ -35,6 +35,10 @@
 - 서버/클라이언트 컴포넌트: 기본은 서버 컴포넌트. 인터랙션 필요할 때만 `"use client"` 명시.
 - 데이터 페칭: 가능하면 서버 컴포넌트에서 직접 Prisma 호출. 클라이언트에서 필요하면 Route Handler 경유.
 - 주석: 자명한 코드에는 주석 X. "왜 이렇게 했는지(why)"가 필요한 경우에만 주석 작성.
+- **Prisma 클라이언트 import**: `@prisma/client`가 아닌 `@/generated/prisma/client`에서 import할 것. Prisma 6의 TypeScript-first 출력 형식에서 `client.ts`가 진입점이기 때문임.
+  ```typescript
+  import { PrismaClient } from "@/generated/prisma/client"
+  ```
 
 ## 작업 시 기대사항
 - 코드를 작성/수정할 때는 **변경 이유와 근거**를 함께 설명할 것.

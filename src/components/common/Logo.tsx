@@ -1,23 +1,20 @@
-import { MapPin } from "lucide-react"
 import Link from "next/link"
 
-// 헤더와 로그인 페이지 등에서 재사용되는 브랜드 로고.
-// size prop으로 헤더용(작은) / 랜딩용(큰) 두 가지를 한 컴포넌트에서 처리.
+// 워드마크 전용 로고. 아이콘 없이 타이포그래피만으로 정체성을 표현.
+// - font-extrabold (800): 두툼한 무게감으로 brand presence 확보
+// - tracking-tight: 자간을 살짝 좁혀서 "데이트립" 글자 덩어리감 강조
+// - leading-none: 행간 제거로 헤더 수직 정렬 깨끗하게
+//
+// size prop으로 헤더용(default)과 로그인 화면용(large) 분기.
 
 export function Logo({ size = "default" }: { size?: "default" | "large" }) {
-  const isLarge = size === "large"
+  const sizeClass = size === "large" ? "text-3xl" : "text-xl"
   return (
     <Link
       href="/"
-      className="inline-flex items-center gap-2 font-bold tracking-tight"
+      className={`inline-block font-extrabold tracking-tight leading-none ${sizeClass}`}
     >
-      <MapPin
-        className={isLarge ? "h-7 w-7" : "h-5 w-5"}
-        // fill로 핀이 솔리드하게 보이도록. 데이트립의 정체성을 살짝 강조.
-        fill="currentColor"
-        strokeWidth={1.5}
-      />
-      <span className={isLarge ? "text-2xl" : "text-lg"}>데이트립</span>
+      데이트립
     </Link>
   )
 }

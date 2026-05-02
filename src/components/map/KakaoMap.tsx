@@ -1,39 +1,43 @@
 "use client"
 
-// 빈 카카오맵을 렌더링하는 컴포넌트.
-// SDK 로딩 상태를 polling으로 확인 (Script onLoad 이벤트 대신 polling을 쓰는 이유:
-// 동일 페이지에서 여러 인스턴스가 떠도 안전하게 동작하게 하려고).
-//
-// 6-A 단계: 빈 지도만. 마커/폴리라인은 6-B 단계에서 추가 예정.
+// 카카오맵 컴포넌트.
+// children으로 받은 마커/폴리라인 컴포넌트들에 map 인스턴스를 context로 전달.
+// SDK 로딩은 polling으로 확인 (여러 인스턴스가 동시에 떠도 안전).
 
-import { useEffect, useRef, useState } from "react"
+import { createContext, useContext, useEffect, useRef, useState } from "react"
 
 type Props = Readonly<{
-  // 초기 중심 좌표. 기본값은 서울 시청.
   initialCenter?: { lat: number; lng: number }
-  // 초기 줌 레벨 (1=최대 확대, 14=최대 축소). 기본값 6 = 서울 전체가 보이는 정도.
   initialLevel?: number
+  // 자동 fitBounds 대상 좌표들. 비어있으면 initialCenter/Level 사용.
+  fitBoundsPoints?: Array<{ lat: number; lng: number }>
   className?: string
+  children?: React.ReactNode
 }>
+
+const KakaoMapContext = createContext<kakao.maps.Map | null>(null)
+
+export function useKakaoMap() {
+  return useContext(KakaoMapContext)
+}
 
 export function KakaoMap({
   initialCenter = { lat: 37.5665, lng: 126.978 },
   initialLevel = 6,
+  fitBoundsPoints,
   className = "",
+  children,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const mapRef = useRef<kakao.maps.Map | null>(null)
+  const [map, setMap] = useState<kakao.maps.Map | null>(null)
   const [isReady, setIsReady] = useState(false)
 
   // SDK 로딩 polling
-  // KakaoMapLoader가 비동기로 SDK를 받아오므로, 컴포넌트 마운트 시점에는 아직 없을 수 있음.
-  // window.kakao.maps가 등장할 때까지 짧은 간격으로 확인.
   useEffect(() => {
     if (typeof window === "undefined") return
 
     const checkSdk = () => {
       if (window.kakao?.maps) {
-        // autoload=false로 받았으므로 명시적 init 필요.
         window.kakao.maps.load(() => setIsReady(true))
         return true
       }
@@ -50,26 +54,41 @@ export function KakaoMap({
 
   // 지도 인스턴스 생성
   useEffect(() => {
-    if (!isReady || !containerRef.current || mapRef.current) return
+    if (!isReady || !containerRef.current || map) return
 
-    mapRef.current = new window.kakao.maps.Map(containerRef.current, {
+    const newMap = new window.kakao.maps.Map(containerRef.current, {
       center: new window.kakao.maps.LatLng(initialCenter.lat, initialCenter.lng),
       level: initialLevel,
     })
-  }, [isReady, initialCenter.lat, initialCenter.lng, initialLevel])
+    setMap(newMap)
+  }, [isReady, initialCenter.lat, initialCenter.lng, initialLevel, map])
+
+  // 모든 코스 좌표를 포함하도록 자동 줌 조절
+  useEffect(() => {
+    if (!map || !fitBoundsPoints || fitBoundsPoints.length === 0) return
+
+    const bounds = new window.kakao.maps.LatLngBounds()
+    fitBoundsPoints.forEach((p) => {
+      bounds.extend(new window.kakao.maps.LatLng(p.lat, p.lng))
+    })
+    if (!bounds.isEmpty()) {
+      map.setBounds(bounds)
+    }
+  }, [map, fitBoundsPoints])
 
   return (
     <div className={`relative w-full ${className}`}>
-      <div
-        ref={containerRef}
-        className="h-full w-full"
-        // 카카오맵은 컨테이너 크기를 명시적으로 잡아줘야 정상 렌더됨.
-        // 부모에서 height를 줘야 하니, 사용 시 className으로 h-* 지정.
-      />
+      <div ref={containerRef} className="h-full w-full" />
       {!isReady && (
-        <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-muted/30 backdrop-blur-sm">
+        <div className="absolute inset-0 flex items-center justify-center bg-muted/30 backdrop-blur-sm">
           <p className="text-sm text-muted-foreground">지도를 불러오는 중...</p>
         </div>
+      )}
+      {/* map이 준비된 후에만 children을 렌더해서 자식들이 안전하게 map 사용 */}
+      {map && (
+        <KakaoMapContext.Provider value={map}>
+          {children}
+        </KakaoMapContext.Provider>
       )}
     </div>
   )

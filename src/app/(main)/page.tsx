@@ -4,8 +4,8 @@
 
 import { auth } from "@/auth"
 import { LoginButtons } from "@/components/auth/LoginButtons"
-import { MapFilterBar } from "@/components/explore/MapFilterBar"
-import { KakaoMap } from "@/components/map/KakaoMap"
+import { ExploreMap } from "@/components/explore/ExploreMap"
+import { getPublicTrips } from "@/lib/trips"
 
 export default async function HomePage() {
   const session = await auth()
@@ -40,13 +40,7 @@ function LandingView() {
 
 // ─────────── 로그인: 지도 탐색 ───────────
 
-function ExploreView() {
-  return (
-    <div className="relative h-[calc(100vh-4rem)] w-full">
-      <KakaoMap className="h-full w-full" />
-      <div className="absolute left-4 top-4 z-10">
-        <MapFilterBar />
-      </div>
-    </div>
-  )
+async function ExploreView() {
+  const trips = await getPublicTrips()
+  return <ExploreMap trips={trips} />
 }

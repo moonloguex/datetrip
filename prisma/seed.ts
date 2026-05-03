@@ -3,8 +3,9 @@
 // 실행 방법: npx prisma db seed
 // 멱등성 보장: 매번 실행해도 동일 결과. 기존 데이터를 지우고 새로 삽입하는 방식.
 //
-// 작성자(authorId)는 DB에 가장 먼저 가입된 사용자 = 본인.
-// 사용자가 없으면 시드 스킵 (먼저 한 번 로그인하라고 안내).
+// 작성자는 .env의 SEED_AUTHOR_EMAIL로 고정. 없으면 createdAt 기준 첫 사용자로 fallback.
+// 같은 사람이 카카오/구글 등 다른 provider로 로그인하면 별개 User가 생기므로,
+// SEED_AUTHOR_EMAIL을 명시해야 어떤 계정으로 로그인해도 동일한 작성자를 가리킴.
 
 import { PrismaClient } from "../src/generated/prisma"
 
@@ -152,15 +153,21 @@ const SEED_TRIPS: SeedTrip[] = [
 ]
 
 async function main() {
-  // 첫 사용자(본인) 찾기. 시드는 이 사용자의 코스로 등록됨.
-  const author = await prisma.user.findFirst({
-    orderBy: { createdAt: "asc" },
-  })
+  // SEED_AUTHOR_EMAIL이 지정되어 있으면 해당 이메일 사용자를 작성자로 사용.
+  // 없으면 createdAt 기준 첫 번째 사용자로 fallback (불안정하므로 비권장).
+  const seedAuthorEmail = process.env.SEED_AUTHOR_EMAIL
+
+  const author = seedAuthorEmail
+    ? await prisma.user.findUnique({ where: { email: seedAuthorEmail } })
+    : await prisma.user.findFirst({ orderBy: { createdAt: "asc" } })
 
   if (!author) {
-    console.error(
-      "❌ 시드 실행 불가: DB에 사용자가 없습니다. 먼저 http://localhost:3000 에서 한 번 로그인해주세요.",
-    )
+    if (seedAuthorEmail) {
+      console.error(`❌ SEED_AUTHOR_EMAIL=${seedAuthorEmail} 사용자를 DB에서 찾을 수 없습니다.`)
+      console.error(`   먼저 http://localhost:3000 에서 해당 이메일로 로그인 후 다시 시도하세요.`)
+    } else {
+      console.error("❌ DB에 사용자가 없습니다. 먼저 http://localhost:3000 에서 로그인해주세요.")
+    }
     process.exit(1)
   }
 

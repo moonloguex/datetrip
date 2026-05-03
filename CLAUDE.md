@@ -4,7 +4,7 @@
 사용자가 좋아하는 데이트/여행 코스를 순서대로 등록하고, 그 경로를 다른 사람과 공유하는 웹 서비스.
 
 ## 기술 스택
-- 프레임워크: Next.js 14+ (App Router, TypeScript)
+- 프레임워크: Next.js 16+ (App Router, TypeScript)
 - 스타일링: Tailwind CSS + shadcn/ui
 - DB: PostgreSQL (Neon 호스팅)
 - ORM: Prisma 6 (output: src/generated/prisma)
@@ -45,3 +45,20 @@
 - 라이브러리를 새로 추가할 때는 **왜 이 라이브러리인지** 간단히 정당화.
 - 파괴적 변경(파일 삭제, 스키마 변경) 전에는 한 번 확인 받기.
 - 한국어로 응답.
+
+## 알려진 함정
+
+### NextAuth OAuth 사용자 식별
+- 같은 사람이 카카오/구글 등 서로 다른 provider로 로그인하면 DB에 **별개 User** 레코드가 생성됨.
+  이메일이 같아도 분리된다.
+- `authorId`, `userId` 등으로 데이터를 필터링할 때 사용자가 어떤 provider로 로그인했는지에 따라
+  다른 결과가 나올 수 있음.
+- 시드 데이터의 작성자는 `.env`의 `SEED_AUTHOR_EMAIL`로 고정.
+  시드를 돌리기 전 해당 이메일로 최소 한 번 로그인되어 있어야 함.
+
+### 환경별 주의사항
+- Tailwind v4: 설정은 `src/app/globals.css`의 `@theme` 디렉티브 사용. `tailwind.config.js` 없음.
+- Next.js 16: middleware → `src/proxy.ts`로 이름 변경.
+- shadcn Vega 스타일 Button: `render={<Link href="..." />}` + `nativeButton={false}` 패턴 사용.
+  `asChild`는 Vega 스타일에서 동작하지 않음.
+- seed.ts의 Prisma import는 절대경로 별칭(`@/`) 불가 → `../src/generated/prisma` 상대경로 사용.

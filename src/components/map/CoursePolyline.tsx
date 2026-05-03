@@ -1,15 +1,14 @@
 "use client"
 
 // 한 코스를 지도 위에 그리는 컴포넌트.
-// - 폴리라인: 같은 색의 선으로 점들을 순서대로 연결
-// - 점: CustomOverlay로 그린 작은 원
-// - 호버 툴팁: 점 위에 마우스 올리면 즉시 뜨는 라벨 (네이티브 title 대체)
 //
-// CircleMarker 대신 CustomOverlay를 쓰는 이유:
-//   카카오 SDK의 CircleMarker는 옵션이 제한적이라 색/사이즈를
-//   원하는 대로 컨트롤하기 어려움. CSS로 그리는 게 자유도 높음.
+// 인터랙션 정책:
+// - 기본: opacity 0.85, strokeWeight 3
+// - 선택됨: opacity 1, strokeWeight 4
+// - 다른 코스가 선택된 상태: opacity 0.25 (흐려짐)
+// - 클릭(선 또는 점): onSelect 호출
 
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useKakaoMap } from "@/components/map/KakaoMap"
 
 type CoursePoint = {
@@ -20,13 +19,28 @@ type CoursePoint = {
 }
 
 type Props = Readonly<{
+  tripId: string
+  tripTitle: string
   points: CoursePoint[]
   color: string
+  selectedTripId: string | null
+  onSelect: (id: string) => void
 }>
 
-export function CoursePolyline({ points, color }: Props) {
+export function CoursePolyline({
+  tripId,
+  points,
+  color,
+  selectedTripId,
+  onSelect,
+}: Props) {
   const map = useKakaoMap()
+  const polylineRef = useRef<kakao.maps.Polyline | null>(null)
+  const overlaysRef = useRef<kakao.maps.CustomOverlay[]>([])
+  const dotsRef = useRef<HTMLDivElement[]>([])
+  const tooltipRef = useRef<kakao.maps.CustomOverlay | null>(null)
 
+  // Effect 1: 그리기 (map/points/color 변경 시 재생성)
   useEffect(() => {
     if (!map || points.length === 0) return
 
@@ -35,7 +49,6 @@ export function CoursePolyline({ points, color }: Props) {
       (p) => new window.kakao.maps.LatLng(p.latitude, p.longitude),
     )
 
-    // 1. 폴리라인
     const polyline = new window.kakao.maps.Polyline({
       path,
       strokeWeight: 3,
@@ -44,8 +57,14 @@ export function CoursePolyline({ points, color }: Props) {
       strokeStyle: "solid",
     })
     polyline.setMap(map)
+    polylineRef.current = polyline
 
-    // 툴팁용 단일 오버레이 (hover 시 재사용, 한 번에 하나만 보임)
+    // 폴리라인 클릭 이벤트
+    window.kakao.maps.event.addListener(polyline, "click", () => {
+      onSelect(tripId)
+    })
+
+    // 툴팁용 단일 오버레이 (hover 시 재사용)
     const tooltipEl = document.createElement("div")
     tooltipEl.style.cssText = `
       background: rgba(20, 20, 22, 0.92);
@@ -62,11 +81,12 @@ export function CoursePolyline({ points, color }: Props) {
       position: new window.kakao.maps.LatLng(0, 0),
       content: tooltipEl,
       xAnchor: 0.5,
-      yAnchor: 1.4, // 점 위쪽에 띄움
+      yAnchor: 1.4,
       zIndex: 10,
     })
+    tooltipRef.current = tooltip
 
-    // 2. 점들
+    const dots: HTMLDivElement[] = []
     const overlays = sorted.map((point, idx) => {
       const isStart = idx === 0
       const dotSize = isStart ? 14 : 10
@@ -80,8 +100,9 @@ export function CoursePolyline({ points, color }: Props) {
         border-radius: 50%;
         box-shadow: 0 1px 3px rgba(0,0,0,0.3);
         cursor: pointer;
-        transition: transform 0.12s ease;
+        transition: transform 0.12s ease, opacity 0.18s ease;
       `
+      dots.push(dot)
 
       dot.addEventListener("mouseenter", () => {
         dot.style.transform = "scale(1.4)"
@@ -95,6 +116,9 @@ export function CoursePolyline({ points, color }: Props) {
         dot.style.transform = "scale(1)"
         tooltip.setMap(null)
       })
+      dot.addEventListener("click", () => {
+        onSelect(tripId)
+      })
 
       const overlay = new window.kakao.maps.CustomOverlay({
         position: new window.kakao.maps.LatLng(point.latitude, point.longitude),
@@ -106,13 +130,38 @@ export function CoursePolyline({ points, color }: Props) {
       overlay.setMap(map)
       return overlay
     })
+    overlaysRef.current = overlays
+    dotsRef.current = dots
 
     return () => {
       polyline.setMap(null)
       overlays.forEach((o) => o.setMap(null))
       tooltip.setMap(null)
+      polylineRef.current = null
+      overlaysRef.current = []
+      dotsRef.current = []
+      tooltipRef.current = null
     }
-  }, [map, points, color])
+  }, [map, points, color, tripId, onSelect])
+
+  // Effect 2: 선택 상태 반응 (재생성 없이 스타일만 변경)
+  useEffect(() => {
+    const polyline = polylineRef.current
+    const dots = dotsRef.current
+    if (!polyline) return
+
+    const isSelected = selectedTripId === tripId
+    const isOtherSelected = selectedTripId !== null && !isSelected
+
+    polyline.setOptions({
+      strokeWeight: isSelected ? 4 : 3,
+      strokeOpacity: isOtherSelected ? 0.25 : 0.85,
+    })
+
+    dots.forEach((dot) => {
+      dot.style.opacity = isOtherSelected ? "0.25" : "1"
+    })
+  }, [selectedTripId, tripId])
 
   return null
 }

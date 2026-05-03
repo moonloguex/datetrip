@@ -14,4 +14,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   // JWT 전략을 강제하는 이유: database 세션은 매 요청마다 DB 쿼리가 일어나고
   // edge runtime(proxy.ts)에서 동작하지 않습니다. JWT는 stateless라 둘 다 해결.
   ...authConfig,
+  callbacks: {
+    session({ session, token }) {
+      // JWT 전략에서 token.sub = user.id. session.user에 id를 노출.
+      if (session.user && token.sub) {
+        session.user.id = token.sub
+      }
+      return session
+    },
+  },
 })

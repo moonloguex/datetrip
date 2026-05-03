@@ -68,5 +68,13 @@ declare namespace kakao.maps {
     zIndex?: number
     clickable?: boolean
   }
+
+  namespace event {
+    function addListener(
+      target: object,
+      type: string,
+      handler: (...args: unknown[]) => void,
+    ): void
+  }
 }
 

@@ -1,19 +1,27 @@
 // 홈 페이지. 로그인 여부에 따라 다른 컨텐츠를 보여줌.
 // - 비로그인: 랜딩 (히어로 + 로그인 CTA)
-// - 로그인: 지도 탐색 (필터 바 + 지도 ─ 6단계에서 진짜 지도로 교체)
+// - 로그인: 지도 탐색 (필터 바 + 지도)
 
 import { auth } from "@/auth"
 import { LoginButtons } from "@/components/auth/LoginButtons"
 import { ExploreMap } from "@/components/explore/ExploreMap"
 import { getPublicTrips } from "@/lib/trips"
 
-export default async function HomePage() {
+type SearchParams = { mine?: string }
+
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>
+}) {
   const session = await auth()
 
   if (!session?.user) {
     return <LandingView />
   }
-  return <ExploreView />
+
+  const params = await searchParams
+  return <ExploreView userId={session.user.id} mineOnly={params.mine === "1"} />
 }
 
 // ─────────── 비로그인: 랜딩 ───────────
@@ -40,7 +48,15 @@ function LandingView() {
 
 // ─────────── 로그인: 지도 탐색 ───────────
 
-async function ExploreView() {
-  const trips = await getPublicTrips()
-  return <ExploreMap trips={trips} />
+async function ExploreView({
+  userId,
+  mineOnly,
+}: {
+  userId: string
+  mineOnly: boolean
+}) {
+  const trips = await getPublicTrips({
+    authorIdFilter: mineOnly ? userId : undefined,
+  })
+  return <ExploreMap trips={trips} mineOnly={mineOnly} />
 }

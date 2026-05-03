@@ -7,7 +7,7 @@
 // 같은 사람이 카카오/구글 등 다른 provider로 로그인하면 별개 User가 생기므로,
 // SEED_AUTHOR_EMAIL을 명시해야 어떤 계정으로 로그인해도 동일한 작성자를 가리킴.
 
-import { PrismaClient } from "../src/generated/prisma"
+import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 

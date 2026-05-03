@@ -7,7 +7,7 @@
 - 프레임워크: Next.js 16+ (App Router, TypeScript)
 - 스타일링: Tailwind CSS + shadcn/ui
 - DB: PostgreSQL (Neon 호스팅)
-- ORM: Prisma 6 (output: src/generated/prisma)
+- ORM: Prisma 6
 - 인증: NextAuth.js (Auth.js v5) ─ 카카오 + 구글 OAuth
 - 지도: 카카오맵 JavaScript SDK + 카카오 로컬 REST API
 - 배포: Vercel
@@ -35,9 +35,9 @@
 - 서버/클라이언트 컴포넌트: 기본은 서버 컴포넌트. 인터랙션 필요할 때만 `"use client"` 명시.
 - 데이터 페칭: 가능하면 서버 컴포넌트에서 직접 Prisma 호출. 클라이언트에서 필요하면 Route Handler 경유.
 - 주석: 자명한 코드에는 주석 X. "왜 이렇게 했는지(why)"가 필요한 경우에만 주석 작성.
-- **Prisma 클라이언트 import**: `@prisma/client`가 아닌 `@/generated/prisma`에서 import할 것. `prisma-client-js` generator가 `src/generated/prisma`에 `index.js`를 출력하기 때문임.
+- **Prisma 클라이언트 import**: 표준 경로 `@prisma/client`에서 import. Turbopack NFT 호환을 위해 커스텀 output 경로 사용하지 않음.
   ```typescript
-  import { PrismaClient } from "@/generated/prisma"
+  import { PrismaClient } from "@prisma/client"
   ```
 
 ## 작업 시 기대사항
@@ -61,4 +61,4 @@
 - Next.js 16: middleware → `src/proxy.ts`로 이름 변경.
 - shadcn Vega 스타일 Button: `render={<Link href="..." />}` + `nativeButton={false}` 패턴 사용.
   `asChild`는 Vega 스타일에서 동작하지 않음.
-- seed.ts의 Prisma import는 절대경로 별칭(`@/`) 불가 → `../src/generated/prisma` 상대경로 사용.
+- seed.ts의 Prisma import는 `@prisma/client` npm 패키지 이름으로 통일. `@/` 경로 별칭은 불가.

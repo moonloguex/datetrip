@@ -1,7 +1,5 @@
-// Prisma 6 형식: prisma-client-js generator + 명시적 output 경로
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {

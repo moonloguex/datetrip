@@ -9,11 +9,12 @@ export type SearchedPlace = {
 }
 
 export type DraftPlace = {
-  kakaoId: string
+  kakaoPlaceId: string
   name: string
   category: string
   address: string
   roadAddress: string
+  phone: string
   latitude: number
   longitude: number
   memo: string

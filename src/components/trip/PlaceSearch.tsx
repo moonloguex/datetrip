@@ -8,10 +8,11 @@ import type { SearchedPlace } from "@/types/place"
 
 type Props = Readonly<{
   onAdd: (place: SearchedPlace) => void
-  addedIds: Set<string>
+  addedPlaceIds: Set<string>
+  referencePoint?: { latitude: number; longitude: number }
 }>
 
-export function PlaceSearch({ onAdd, addedIds }: Props) {
+export function PlaceSearch({ onAdd, addedPlaceIds }: Props) {
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<SearchedPlace[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -61,7 +62,7 @@ export function PlaceSearch({ onAdd, addedIds }: Props) {
       {!isLoading && results.length > 0 && (
         <ul className="flex flex-col rounded-md border bg-background shadow-sm">
           {results.map((place) => {
-            const added = addedIds.has(place.id)
+            const added = addedPlaceIds.has(place.id)
             return (
               <li
                 key={place.id}

@@ -57,6 +57,7 @@ async function ExploreView({
 }) {
   const trips = await getPublicTrips({
     authorIdFilter: mineOnly ? userId : undefined,
+    viewerId: userId, // 본인 비공개 코스도 노출되도록
   })
   return <ExploreMap trips={trips} mineOnly={mineOnly} />
 }

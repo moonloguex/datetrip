@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import { auth } from "@/auth"
-import { getTripById } from "@/lib/trips"
+import { getTripById, getLikedTripIds } from "@/lib/trips"
 import { TripDetailView } from "@/components/trip/TripDetailView"
 
 type Props = {
@@ -15,15 +15,20 @@ export default async function TripDetailPage({ params }: Props) {
     notFound()
   }
 
-  if (!trip.isPublic) {
-    const session = await auth()
-    if (!session?.user?.id || session.user.id !== trip.authorId) {
-      notFound()
-    }
+  const session = await auth()
+  const viewerId = session?.user?.id ?? null
+
+  // 비공개 코스 접근 제어
+  if (!trip.isPublic && trip.authorId !== viewerId) {
+    notFound()
   }
 
-  const session = await auth()
-  const isOwner = session?.user?.id === trip.authorId
+  const isOwner = viewerId !== null && viewerId === trip.authorId
+  const isLiked = viewerId
+    ? (await getLikedTripIds(viewerId, [trip.id])).has(trip.id)
+    : false
 
-  return <TripDetailView trip={trip} isOwner={isOwner} />
+  return (
+    <TripDetailView trip={trip} isOwner={isOwner} isLiked={isLiked} />
+  )
 }

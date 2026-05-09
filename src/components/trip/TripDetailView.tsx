@@ -9,16 +9,17 @@
 import Link from "next/link"
 import { KakaoMap } from "@/components/map/KakaoMap"
 import { CoursePolyline } from "@/components/map/CoursePolyline"
-import { Button } from "@/components/ui/button"
+import { TripActionBar } from "@/components/trip/TripActionBar"
 import { getCourseColor } from "@/lib/courseColors"
 import type { TripDetail } from "@/lib/trips"
 
 type Props = {
   trip: TripDetail
   isOwner: boolean
+  isLiked: boolean
 }
 
-export function TripDetailView({ trip, isOwner }: Props) {
+export function TripDetailView({ trip, isOwner, isLiked }: Props) {
   const color = getCourseColor(trip.id)
 
   const fitBoundsPoints = trip.places.map((p) => ({
@@ -86,50 +87,12 @@ export function TripDetailView({ trip, isOwner }: Props) {
             </p>
           )}
 
-          {/* 액션 버튼 ─ 8-B에서 동작 추가 예정 */}
-          <div className="flex gap-2 pt-2">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              disabled
-              title="다음 단계에서 동작 추가 예정"
-            >
-              ♥ 좋아요 {trip.likeCount}
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              disabled
-              title="다음 단계에서 동작 추가 예정"
-            >
-              공유
-            </Button>
-            {isOwner && (
-              <>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  disabled
-                  title="다음 단계에서 동작 추가 예정"
-                >
-                  수정
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  disabled
-                  className="text-destructive"
-                  title="다음 단계에서 동작 추가 예정"
-                >
-                  삭제
-                </Button>
-              </>
-            )}
-          </div>
+          <TripActionBar
+            tripId={trip.id}
+            initialLikeCount={trip.likeCount}
+            initialLiked={isLiked}
+            isOwner={isOwner}
+          />
         </div>
 
         {/* 장소 리스트 */}

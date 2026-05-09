@@ -29,3 +29,19 @@ export async function getPublicTrips(options: GetPublicTripsOptions = {}) {
     orderBy: { createdAt: "desc" },
   })
 }
+
+export async function getTripById(id: string) {
+  return prisma.trip.findUnique({
+    where: { id },
+    include: {
+      places: {
+        orderBy: { order: "asc" },
+      },
+      author: {
+        select: { id: true, name: true, image: true },
+      },
+    },
+  })
+}
+
+export type TripDetail = NonNullable<Awaited<ReturnType<typeof getTripById>>>

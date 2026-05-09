@@ -1,0 +1,29 @@
+import { notFound } from "next/navigation"
+import { auth } from "@/auth"
+import { getTripById } from "@/lib/trips"
+import { TripDetailView } from "@/components/trip/TripDetailView"
+
+type Props = {
+  params: Promise<{ id: string }>
+}
+
+export default async function TripDetailPage({ params }: Props) {
+  const { id } = await params
+  const trip = await getTripById(id)
+
+  if (!trip) {
+    notFound()
+  }
+
+  if (!trip.isPublic) {
+    const session = await auth()
+    if (!session?.user?.id || session.user.id !== trip.authorId) {
+      notFound()
+    }
+  }
+
+  const session = await auth()
+  const isOwner = session?.user?.id === trip.authorId
+
+  return <TripDetailView trip={trip} isOwner={isOwner} />
+}

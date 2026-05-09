@@ -3,17 +3,24 @@
 // 홈 페이지의 지도 + 코스들을 모아 렌더하는 클라이언트 컴포넌트.
 // page.tsx(서버 컴포넌트)에서 trip 데이터를 받아와 props로 전달.
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import Link from "next/link"
 import { KakaoMap } from "@/components/map/KakaoMap"
 import { CoursePolyline } from "@/components/map/CoursePolyline"
 import { MapFilterBar } from "@/components/explore/MapFilterBar"
+import { TripPreviewCard } from "@/components/explore/TripPreviewCard"
 import { getCourseColor } from "@/lib/courseColors"
 import { Button } from "@/components/ui/button"
 
 type Trip = {
   id: string
   title: string
+  description: string | null
+  region: string | null
+  likeCount: number
+  author: {
+    name: string | null
+  }
   places: Array<{
     latitude: number
     longitude: number
@@ -32,6 +39,11 @@ export function ExploreMap({ trips, mineOnly }: Props) {
 
   const allPoints = trips.flatMap((trip) =>
     trip.places.map((p) => ({ lat: p.latitude, lng: p.longitude })),
+  )
+
+  const selectedTrip = useMemo(
+    () => trips.find((t) => t.id === selectedTripId) ?? null,
+    [trips, selectedTripId],
   )
 
   return (
@@ -68,6 +80,16 @@ export function ExploreMap({ trips, mineOnly }: Props) {
           >
             선택 해제
           </button>
+        </div>
+      )}
+
+      {/* 좌하단: 선택된 코스 미리보기 카드 */}
+      {selectedTrip && (
+        <div className="absolute bottom-4 left-4 z-10">
+          <TripPreviewCard
+            trip={selectedTrip}
+            onClose={() => setSelectedTripId(null)}
+          />
         </div>
       )}
 

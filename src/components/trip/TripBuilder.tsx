@@ -10,20 +10,51 @@ import { Label } from "@/components/ui/label"
 import { PlaceSearch } from "@/components/trip/PlaceSearch"
 import { DraftPlaceList } from "@/components/trip/DraftPlaceList"
 import { DraftCourseMap } from "@/components/trip/DraftCourseMap"
-import { createTrip } from "@/app/actions/trips"
+import { createTrip, updateTrip } from "@/app/actions/trips"
 import type { DraftPlace, SearchedPlace } from "@/types/place"
 
-export function TripBuilder() {
+// Discriminated union으로 mode별 props를 구분.
+// TypeScript가 mode === "edit"일 때만 tripId/initial이 있다고 추론해줌.
+type CreateProps = { mode: "create" }
+type EditProps = {
+  mode: "edit"
+  tripId: string
+  initial: InitialValues
+}
+type Props = CreateProps | EditProps
+
+export type InitialValues = {
+  title: string
+  description: string
+  region: string
+  tags: string[]
+  isPublic: boolean
+  places: DraftPlace[]
+}
+
+export function TripBuilder(props: Props) {
   const router = useRouter()
   const [isSaving, startSaving] = useTransition()
 
-  const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
-  const [region, setRegion] = useState("")
-  const [tags, setTags] = useState<string[]>([])
+  const initialValues: InitialValues =
+    props.mode === "edit"
+      ? props.initial
+      : {
+          title: "",
+          description: "",
+          region: "",
+          tags: [],
+          isPublic: true,
+          places: [],
+        }
+
+  const [title, setTitle] = useState(initialValues.title)
+  const [description, setDescription] = useState(initialValues.description)
+  const [region, setRegion] = useState(initialValues.region)
+  const [tags, setTags] = useState<string[]>(initialValues.tags)
   const [tagInput, setTagInput] = useState("")
-  const [isPublic, setIsPublic] = useState(true)
-  const [places, setPlaces] = useState<DraftPlace[]>([])
+  const [isPublic, setIsPublic] = useState(initialValues.isPublic)
+  const [places, setPlaces] = useState<DraftPlace[]>(initialValues.places)
 
   const referencePoint = useMemo(() => {
     if (places.length === 0) return undefined
@@ -83,34 +114,48 @@ export function TripBuilder() {
   function handleSave() {
     if (!canSave) return
 
-    startSaving(async () => {
-      const result = await createTrip({
-        title,
-        description: description.trim() || undefined,
-        region: region.trim() || undefined,
-        tags,
-        isPublic,
-        places: places.map((p) => ({
-          kakaoPlaceId: p.kakaoPlaceId,
-          name: p.name,
-          category: p.category,
-          address: p.address,
-          roadAddress: p.roadAddress,
-          phone: p.phone,
-          latitude: p.latitude,
-          longitude: p.longitude,
-          memo: p.memo,
-        })),
-      })
+    const payload = {
+      title,
+      description: description.trim() || undefined,
+      region: region.trim() || undefined,
+      tags,
+      isPublic,
+      places: places.map((p) => ({
+        kakaoPlaceId: p.kakaoPlaceId,
+        name: p.name,
+        category: p.category,
+        address: p.address,
+        roadAddress: p.roadAddress,
+        phone: p.phone,
+        latitude: p.latitude,
+        longitude: p.longitude,
+        memo: p.memo,
+      })),
+    }
 
-      if (result.ok) {
-        toast.success("코스가 저장됐어요")
-        router.push("/")
+    startSaving(async () => {
+      if (props.mode === "create") {
+        const result = await createTrip(payload)
+        if (result.ok) {
+          toast.success("코스가 저장됐어요")
+          router.push("/")
+        } else {
+          toast.error(result.error)
+        }
       } else {
-        toast.error(result.error)
+        const result = await updateTrip({ ...payload, tripId: props.tripId })
+        if (result.ok) {
+          toast.success("코스를 수정했어요")
+          router.push(`/trips/${props.tripId}`)
+        } else {
+          toast.error(result.error)
+        }
       }
     })
   }
+
+  const pageTitle = props.mode === "create" ? "새 코스 만들기" : "코스 수정"
+  const backLink = props.mode === "create" ? "/" : `/trips/${props.tripId}`
 
   return (
     <div className="grid h-[calc(100vh-4rem)] grid-cols-[minmax(380px,2fr)_3fr]">
@@ -118,7 +163,7 @@ export function TripBuilder() {
       <div className="flex flex-col gap-6 overflow-y-auto border-r p-6">
         <div className="flex items-center justify-between">
           <Link
-            href="/"
+            href={backLink}
             className="text-sm text-muted-foreground hover:text-foreground"
           >
             ← 돌아가기
@@ -133,8 +178,9 @@ export function TripBuilder() {
           </Button>
         </div>
 
-        <h1 className="text-xl font-bold tracking-tight">새 코스 만들기</h1>
+        <h1 className="text-xl font-bold tracking-tight">{pageTitle}</h1>
 
+        {/* 메타 정보 */}
         <div className="space-y-4">
           <div className="space-y-1.5">
             <Label htmlFor="title">
@@ -158,7 +204,7 @@ export function TripBuilder() {
               placeholder="이 코스의 매력을 한두 줄로 소개해보세요"
               maxLength={200}
               rows={3}
-              className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-none"
+              className="flex w-full resize-none rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             />
           </div>
 

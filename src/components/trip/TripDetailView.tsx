@@ -89,6 +89,7 @@ export function TripDetailView({ trip, isOwner, isLiked }: Props) {
 
           <TripActionBar
             tripId={trip.id}
+            tripTitle={trip.title}
             initialLikeCount={trip.likeCount}
             initialLiked={isLiked}
             isOwner={isOwner}

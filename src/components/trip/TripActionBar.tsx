@@ -3,16 +3,17 @@
 // 코스 상세 페이지의 액션 버튼 묶음 (좋아요/공유/수정/삭제).
 // 좋아요는 useOptimistic으로 즉각적 피드백.
 // 공유는 navigator.clipboard로 URL 복사.
-//
-// 수정/삭제 버튼은 자리만. 동작은 8-B-2에서.
 
+import Link from "next/link"
 import { useOptimistic, useTransition } from "react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
+import { DeleteTripDialog } from "@/components/trip/DeleteTripDialog"
 import { toggleLike } from "@/app/actions/likes"
 
 type Props = {
   tripId: string
+  tripTitle: string
   initialLikeCount: number
   initialLiked: boolean
   isOwner: boolean
@@ -20,6 +21,7 @@ type Props = {
 
 export function TripActionBar({
   tripId,
+  tripTitle,
   initialLikeCount,
   initialLiked,
   isOwner,
@@ -84,24 +86,14 @@ export function TripActionBar({
       {isOwner && (
         <>
           <Button
-            type="button"
             variant="outline"
             size="sm"
-            disabled
-            title="다음 단계에서 동작 추가 예정"
+            nativeButton={false}
+            render={<Link href={`/trips/${tripId}/edit`} />}
           >
             수정
           </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled
-            className="text-destructive"
-            title="다음 단계에서 동작 추가 예정"
-          >
-            삭제
-          </Button>
+          <DeleteTripDialog tripId={tripId} tripTitle={tripTitle} />
         </>
       )}
     </div>

@@ -19,7 +19,7 @@ type Trip = {
   region: string | null
   likeCount: number
   author: {
-    name: string | null
+    nickname: string | null
   }
   places: Array<{
     latitude: number

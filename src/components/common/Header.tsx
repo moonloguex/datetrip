@@ -24,7 +24,7 @@ export async function Header() {
               </Button>
               <UserMenu
                 user={{
-                  name: session.user.name ?? null,
+                  nickname: session.user.nickname ?? null,
                   email: session.user.email ?? null,
                   image: session.user.image ?? null,
                 }}

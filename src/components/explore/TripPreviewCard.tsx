@@ -15,7 +15,7 @@ type Trip = {
   likeCount: number
   places: Array<unknown>
   author: {
-    name: string | null
+    nickname: string | null
   }
 }
 
@@ -24,7 +24,7 @@ type Props = {
   onClose: () => void
 }
 
-export function TripPreviewCard({ trip, onClose }: Props) {
+export function TripPreviewCard({ trip, onClose }: Readonly<Props>) {
   const color = getCourseColor(trip.id)
 
   return (
@@ -38,7 +38,7 @@ export function TripPreviewCard({ trip, onClose }: Props) {
         <div className="min-w-0 flex-1 space-y-1">
           <h3 className="truncate font-semibold">{trip.title}</h3>
           <p className="text-xs text-muted-foreground">
-            by {trip.author.name ?? "익명"}
+            by {trip.author.nickname ?? "익명"}
             {trip.region && ` · ${trip.region}`}
             {` · ${trip.places.length}개 장소`}
           </p>

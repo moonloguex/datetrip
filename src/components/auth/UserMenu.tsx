@@ -14,28 +14,27 @@ import {
 
 type Props = {
   user: {
-    name: string | null
+    nickname: string | null
     email: string | null
     image: string | null
   }
   signOutAction: () => Promise<void>
 }
 
-export function UserMenu({ user, signOutAction }: Props) {
-  // 이미지가 없을 때 표시할 fallback 이니셜
-  const initial = (user.name ?? user.email ?? "?").charAt(0).toUpperCase()
+export function UserMenu({ user, signOutAction }: Readonly<Props>) {
+  const initial = (user.nickname ?? user.email ?? "?").charAt(0).toUpperCase()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
         <Avatar className="h-9 w-9">
-          {user.image && <AvatarImage src={user.image} alt={user.name ?? ""} />}
+          {user.image && <AvatarImage src={user.image} alt={user.nickname ?? ""} />}
           <AvatarFallback>{initial}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <div className="px-2 py-1.5">
-          <p className="text-sm font-medium">{user.name ?? "사용자"}</p>
+          <p className="text-sm font-medium">{user.nickname ?? "사용자"}</p>
           {user.email && (
             <p className="truncate text-xs text-muted-foreground">{user.email}</p>
           )}

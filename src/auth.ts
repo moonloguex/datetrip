@@ -15,10 +15,28 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   // edge runtime(proxy.ts)에서 동작하지 않습니다. JWT는 stateless라 둘 다 해결.
   ...authConfig,
   callbacks: {
+    async jwt({ token, user, trigger }) {
+      // 첫 로그인(user 있음) 또는 닉네임 설정 후 강제 갱신(trigger === "update") 시
+      // DB에서 nickname을 가져와 JWT에 캐시.
+      if (user || trigger === "update") {
+        const userId = user?.id ?? token.sub
+        if (userId) {
+          const dbUser = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { nickname: true },
+          })
+          token.nickname = dbUser?.nickname ?? null
+        }
+      }
+      return token
+    },
     session({ session, token }) {
-      // JWT 전략에서 token.sub = user.id. session.user에 id를 노출.
+      // JWT 전략에서 token.sub = user.id. session.user에 id와 nickname을 노출.
       if (session.user && token.sub) {
         session.user.id = token.sub
+      }
+      if (session.user && token.nickname !== undefined) {
+        session.user.nickname = token.nickname as string | null
       }
       return session
     },

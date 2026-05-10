@@ -33,7 +33,7 @@ export async function getPublicTrips(options: GetPublicTripsOptions = {}) {
         orderBy: { order: "asc" },
       },
       author: {
-        select: { id: true, name: true, image: true },
+        select: { id: true, nickname: true, image: true },
       },
     },
     orderBy: { createdAt: "desc" },
@@ -49,7 +49,7 @@ export async function getTripById(id: string) {
         orderBy: { order: "asc" },
       },
       author: {
-        select: { id: true, name: true, image: true },
+        select: { id: true, nickname: true, image: true },
       },
     },
   })

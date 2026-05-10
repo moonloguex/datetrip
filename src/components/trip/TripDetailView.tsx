@@ -19,7 +19,7 @@ type Props = {
   isLiked: boolean
 }
 
-export function TripDetailView({ trip, isOwner, isLiked }: Props) {
+export function TripDetailView({ trip, isOwner, isLiked }: Readonly<Props>) {
   const color = getCourseColor(trip.id)
 
   const fitBoundsPoints = trip.places.map((p) => ({
@@ -51,7 +51,7 @@ export function TripDetailView({ trip, isOwner, isLiked }: Props) {
             </div>
 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-              <span>by {trip.author.name ?? "익명"}</span>
+              <span>by {trip.author.nickname ?? "익명"}</span>
               <span>·</span>
               <span>{formatRelativeDate(trip.createdAt)}</span>
               {!trip.isPublic && (

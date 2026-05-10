@@ -4,6 +4,7 @@
 // 서버 액션에서 한 번 더 검증해서 안전성 확보.
 
 import { useState, useTransition } from "react"
+import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -11,25 +12,27 @@ import { setNickname } from "@/app/actions/onboarding"
 import { validateNickname } from "@/lib/nickname"
 
 export function OnboardingForm() {
-  const [nickname, setNicknameInput] = useState("")
+  const { update } = useSession()
+  const [nicknameInput, setNicknameInput] = useState("")
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
 
-  const clientValidation = validateNickname(nickname)
+  const clientValidation = validateNickname(nicknameInput)
   const canSubmit = clientValidation.ok && !isPending
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!canSubmit) return
 
     setError(null)
     startTransition(async () => {
-      const result = await setNickname(nickname)
+      const result = await setNickname(nicknameInput)
       if (result.ok) {
-        // 풀 페이지 리로드로 JWT를 강제 재발급.
-        // router.push는 SPA 내비게이션이라 JWT가 옛 상태로 유지되어
-        // 미들웨어가 다시 /onboarding으로 보내는 무한 루프가 생김.
-        // window.location은 새 HTTP 요청을 보내 세션이 깨끗하게 재발급됨.
+        // JWT 갱신 후 풀 리로드.
+        // update()가 /api/auth/session에 PATCH를 보내 jwt callback(trigger="update")을
+        // 실행시켜 DB의 최신 nickname을 JWT 쿠키에 반영한다.
+        // 그 뒤 window.location으로 이동해야 미들웨어가 갱신된 JWT를 읽을 수 있음.
+        await update()
         window.location.href = "/"
       } else {
         setError(result.error)
@@ -53,7 +56,7 @@ export function OnboardingForm() {
         <Input
           id="nickname"
           autoFocus
-          value={nickname}
+          value={nicknameInput}
           onChange={(e) => {
             setNicknameInput(e.target.value)
             setError(null)
@@ -66,7 +69,7 @@ export function OnboardingForm() {
         </p>
 
         {/* 클라이언트 검증 실패 메시지 (입력은 했으나 형식 안 맞음) */}
-        {nickname.length > 0 && !clientValidation.ok && (
+        {nicknameInput.length > 0 && !clientValidation.ok && (
           <p className="text-xs text-destructive">{clientValidation.error}</p>
         )}
 

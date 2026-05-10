@@ -4,7 +4,6 @@
 // 서버 액션에서 한 번 더 검증해서 안전성 확보.
 
 import { useState, useTransition } from "react"
-import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -12,7 +11,6 @@ import { setNickname } from "@/app/actions/onboarding"
 import { validateNickname } from "@/lib/nickname"
 
 export function OnboardingForm() {
-  const router = useRouter()
   const [nickname, setNicknameInput] = useState("")
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
@@ -28,9 +26,11 @@ export function OnboardingForm() {
     startTransition(async () => {
       const result = await setNickname(nickname)
       if (result.ok) {
-        // session 갱신을 위해 router.refresh + 홈으로 이동
-        router.push("/")
-        router.refresh()
+        // 풀 페이지 리로드로 JWT를 강제 재발급.
+        // router.push는 SPA 내비게이션이라 JWT가 옛 상태로 유지되어
+        // 미들웨어가 다시 /onboarding으로 보내는 무한 루프가 생김.
+        // window.location은 새 HTTP 요청을 보내 세션이 깨끗하게 재발급됨.
+        window.location.href = "/"
       } else {
         setError(result.error)
       }

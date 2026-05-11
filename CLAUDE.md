@@ -63,6 +63,29 @@
   `asChild`는 Vega 스타일에서 동작하지 않음.
 - seed.ts의 Prisma import는 `@prisma/client` npm 패키지 이름으로 통일. `@/` 경로 별칭은 불가.
 
+### Auth.js v5 + Edge Middleware + JWT 쿠키 재발급의 함정
+
+**현상**: 사용자 상태(닉네임, 권한 등)가 DB에서 변경됐는데, jwt 콜백에서
+token을 업데이트해도 미들웨어(proxy.ts)에서는 계속 옛 상태가 보임.
+무한 리다이렉트가 발생할 수 있음.
+
+**원인**: NextAuth v5는 명시적인 sign-in/sign-out 이벤트에서만 JWT 쿠키를
+새로 발급. jwt 콜백이 token을 수정해도 클라이언트 쿠키에 반영되지 않음.
+Edge Runtime 미들웨어는 클라이언트가 보낸 원본 JWT 쿠키만 디코드하므로
+미들웨어가 보는 세션은 영원히 로그인 시점 그대로.
+
+**해결 원칙**: 사용자 상태 변경에 따른 라우팅 보호 로직은 미들웨어가 아닌
+서버 컴포넌트(layout 또는 page)에서 처리.
+- 서버 컴포넌트는 매 요청마다 새로 실행되고 DB 접근이 자유로움
+- auth() 호출 시 jwt 콜백이 실행되어 DB fallback이 동작
+- layout에서 직접 redirect() 호출
+
+**현재 구현**:
+- 인증 보호 (로그인 필요 페이지): `proxy.ts` — authConfig.authorized 처리
+- 닉네임 보호 (온보딩 강제): `src/app/(main)/layout.tsx` — auth() + redirect()
+- jwt fallback (`src/auth.ts`): `token.nickname == null`이면 매 요청마다 DB 재조회.
+  재로그인 시 JWT 쿠키가 새로 발급되면 자동 해소됨.
+
 ## 향후 검토 사항 (MVP 후)
 
 ### 사용자 정보 정책

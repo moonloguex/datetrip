@@ -28,6 +28,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           token.nickname = dbUser?.nickname ?? null
         }
       }
+
+      // Fallback: nickname이 아직 null인 토큰은 DB 재조회.
+      // Auth.js v5는 server component에서 auth() 호출 시 jwt callback이 토큰을 수정해도
+      // JWT 쿠키를 재발급하지 않는다. 따라서 닉네임 체크는 미들웨어가 아닌
+      // (main)/layout.tsx에서 이 fallback을 통해 처리한다.
+      // 가입 직후 ~ 재로그인 전까지 매 요청마다 DB를 읽지만,
+      // 한 번 nickname이 채워진 JWT가 재발급되면 이 분기로 안 들어온다.
+      if (token.sub && token.nickname == null) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.sub },
+          select: { nickname: true },
+        })
+        token.nickname = dbUser?.nickname ?? null
+      }
+
       return token
     },
     session({ session, token }) {

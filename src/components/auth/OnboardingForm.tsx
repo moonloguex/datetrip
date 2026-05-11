@@ -4,7 +4,6 @@
 // 서버 액션에서 한 번 더 검증해서 안전성 확보.
 
 import { useState, useTransition } from "react"
-import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -12,7 +11,6 @@ import { setNickname } from "@/app/actions/onboarding"
 import { validateNickname } from "@/lib/nickname"
 
 export function OnboardingForm() {
-  const { update } = useSession()
   const [nicknameInput, setNicknameInput] = useState("")
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
@@ -20,7 +18,7 @@ export function OnboardingForm() {
   const clientValidation = validateNickname(nicknameInput)
   const canSubmit = clientValidation.ok && !isPending
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
     if (!canSubmit) return
 
@@ -28,11 +26,8 @@ export function OnboardingForm() {
     startTransition(async () => {
       const result = await setNickname(nicknameInput)
       if (result.ok) {
-        // JWT 갱신 후 풀 리로드.
-        // update()가 /api/auth/session에 PATCH를 보내 jwt callback(trigger="update")을
-        // 실행시켜 DB의 최신 nickname을 JWT 쿠키에 반영한다.
-        // 그 뒤 window.location으로 이동해야 미들웨어가 갱신된 JWT를 읽을 수 있음.
-        await update()
+        // 풀 리로드로 새 HTTP 요청을 보냄.
+        // jwt 콜백 fallback이 다음 요청에서 DB 재조회 후 token.nickname을 채움.
         window.location.href = "/"
       } else {
         setError(result.error)

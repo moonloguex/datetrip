@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
+import { generateUniqueSlug } from "@/lib/slug"
 
 export type CreateTripInput = {
   title: string
@@ -53,9 +54,13 @@ export async function createTrip(
   }
 
   try {
+    // slug는 생성 시 한 번만 부여. updateTrip은 URL 안정성 정책상 slug를 변경하지 않음.
+    const slug = await generateUniqueSlug(title)
+
     const trip = await prisma.trip.create({
       data: {
         title,
+        slug,
         description: input.description?.trim() || null,
         region: input.region?.trim() || null,
         tags: input.tags,

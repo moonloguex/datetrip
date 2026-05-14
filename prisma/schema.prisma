@@ -24,12 +24,14 @@ model User {
   // 데이트립 고유 필드
   nickname      String?   @unique
   bio           String?
+  preferences   String[]  @default([])
 
   // 관계
-  accounts      Account[]
-  sessions      Session[]
-  trips         Trip[]
-  likes         Like[]
+  accounts        Account[]
+  sessions        Session[]
+  trips           Trip[]
+  likes           Like[]
+  recommendation  Recommendation?
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -76,6 +78,7 @@ model VerificationToken {
 model Trip {
   id          String   @id @default(cuid())
   title       String
+  slug        String?  @unique
   description String?
   coverImage  String?
 
@@ -133,4 +136,18 @@ model Like {
   trip Trip @relation(fields: [tripId], references: [id], onDelete: Cascade)
 
   @@id([userId, tripId])
+}
+
+// AI 추천 결과 캐시. 사용자당 1행.
+// generatedAt + 24h 지나면 다음 접속 시 재계산 (lib/recommend.ts 참조 예정)
+// 캐시 미스 또는 AI 실패 시 폴백 로직이 별도로 동작하므로 이 테이블 비어있어도 추천 섹션은 표시됨
+model Recommendation {
+  userId      String   @id
+  tripIds     String[] // 추천된 코스 ID 배열 (순서 = 추천 순위)
+  reasons     Json     // {[tripId]: "이유 문장"} 형태
+  generatedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([generatedAt]) // 오래된 캐시 일괄 정리용
 }

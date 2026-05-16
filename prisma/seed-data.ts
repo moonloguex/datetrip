@@ -52,8 +52,8 @@ export const SEED_TRIPS: SeedTrip[] = [
     tags: ["산책", "조용한", "카페"],
     places: [
       { name: "경의선숲길", region: "연남동", memo: "일명 연트럴파크. 여유로운 산책로" },
-      { name: "노티드 도넛 연남", region: "연남동", memo: "달콤한 시그니처 도넛" },
-      { name: "매뉴팩트커피 연남", region: "연남동", memo: "로스터리 커피" },
+      { name: "노티드", region: "연남동", memo: "달콤한 시그니처 도넛" },
+      { name: "매뉴팩트커피", region: "연남동", memo: "로스터리 커피" },
       { name: "어반플랜트 연남", region: "연남동", memo: "식물 가득한 공간" },
     ],
   },
@@ -65,9 +65,9 @@ export const SEED_TRIPS: SeedTrip[] = [
     tags: ["조용한", "책", "데이트"],
     places: [
       { name: "사러가쇼핑센터", region: "연희동", memo: "동네의 작은 랜드마크" },
-      { name: "1984 책방", region: "연희동", memo: "독립서점" },
+      { name: "책방 1984", region: "연희동", memo: "독립서점" },
       { name: "매뉴팩트커피 연희", region: "연희동", memo: "넓고 차분한 카페" },
-      { name: "끽다점", region: "연희동", memo: "찻집 분위기" },
+      { name: "테일러커피 연희", region: "연희동", memo: "찻집 분위기" },
     ],
   },
   {
@@ -162,9 +162,9 @@ export const SEED_TRIPS: SeedTrip[] = [
     tags: ["예술", "트렌디", "데이트"],
     places: [
       { name: "리움미술관", region: "용산구 한남동", memo: "현대 미술의 정점" },
-      { name: "디뮤지엄", region: "용산구 한남동", memo: "기획전 명가" },
+      { name: "D MUSEUM", region: "용산구 한남동", memo: "기획전 명가" },
       { name: "사운즈 한남", region: "용산구 한남동", memo: "복합 문화 공간" },
-      { name: "노티드 한남", region: "용산구 한남동", memo: "도넛 한남점" },
+      { name: "노티드 한남", region: "", memo: "도넛 한남점" },
     ],
   },
   {

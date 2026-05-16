@@ -3,9 +3,9 @@
 // 홈 페이지의 지도 + 코스들을 모아 렌더하는 클라이언트 컴포넌트.
 // page.tsx(서버 컴포넌트)에서 trip 데이터를 받아와 props로 전달.
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import Link from "next/link"
-import { KakaoMap } from "@/components/map/KakaoMap"
+import { KakaoMap, useKakaoMap } from "@/components/map/KakaoMap"
 import { CoursePolyline } from "@/components/map/CoursePolyline"
 import { MapFilterBar } from "@/components/explore/MapFilterBar"
 import { TripPreviewCard } from "@/components/explore/TripPreviewCard"
@@ -37,8 +37,12 @@ type Props = Readonly<{
 export function ExploreMap({ trips, mineOnly }: Props) {
   const [selectedTripId, setSelectedTripId] = useState<string | null>(null)
 
-  const allPoints = trips.flatMap((trip) =>
-    trip.places.map((p) => ({ lat: p.latitude, lng: p.longitude })),
+  const allPoints = useMemo(
+    () =>
+      trips.flatMap((trip) =>
+        trip.places.map((p) => ({ lat: p.latitude, lng: p.longitude })),
+      ),
+    [trips],
   )
 
   const selectedTrip = useMemo(
@@ -52,6 +56,10 @@ export function ExploreMap({ trips, mineOnly }: Props) {
         className="h-full w-full"
         fitBoundsPoints={allPoints.length > 0 ? allPoints : undefined}
       >
+        <MapViewportController
+          selectedTripId={selectedTripId}
+          selectedTrip={selectedTrip}
+        />
         {trips.map((trip) => (
           <CoursePolyline
             key={trip.id}
@@ -97,6 +105,55 @@ export function ExploreMap({ trips, mineOnly }: Props) {
       {trips.length === 0 && <EmptyState mineOnly={mineOnly} />}
     </div>
   )
+}
+
+function MapViewportController({
+  selectedTripId,
+  selectedTrip,
+}: Readonly<{
+  selectedTripId: string | null
+  selectedTrip: Trip | null
+}>) {
+  const map = useKakaoMap()
+  const savedViewpointRef = useRef<{ lat: number; lng: number; level: number } | null>(null)
+  const prevIdRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (!map) return
+
+    const prev = prevIdRef.current
+    const next = selectedTripId
+    prevIdRef.current = next
+
+    // null → id: 첫 선택 시 현재 뷰 저장
+    if (prev === null && next !== null) {
+      const center = map.getCenter()
+      savedViewpointRef.current = {
+        lat: center.getLat(),
+        lng: center.getLng(),
+        level: map.getLevel(),
+      }
+    }
+
+    // 코스 선택됨 → 해당 장소 범위로 지도 이동
+    if (next !== null && selectedTrip && selectedTrip.places.length > 0) {
+      const bounds = new window.kakao.maps.LatLngBounds()
+      selectedTrip.places.forEach((p) => {
+        bounds.extend(new window.kakao.maps.LatLng(p.latitude, p.longitude))
+      })
+      if (!bounds.isEmpty()) map.setBounds(bounds)
+    }
+
+    // id → null: 해제 시 저장된 뷰로 복귀
+    if (prev !== null && next === null && savedViewpointRef.current) {
+      const { lat, lng, level } = savedViewpointRef.current
+      map.setCenter(new window.kakao.maps.LatLng(lat, lng))
+      map.setLevel(level)
+      savedViewpointRef.current = null
+    }
+  }, [map, selectedTripId, selectedTrip])
+
+  return null
 }
 
 function EmptyState({ mineOnly }: Readonly<{ mineOnly: boolean }>) {

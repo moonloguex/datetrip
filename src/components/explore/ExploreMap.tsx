@@ -35,10 +35,17 @@ type Props = Readonly<{
   initialTripId?: string
 }>
 
+const SESSION_KEY = "explore-selected-trip"
+
 export function ExploreMap({ trips, mineOnly, initialTripId }: Props) {
-  const [selectedTripId, setSelectedTripId] = useState<string | null>(
-    initialTripId ?? null,
-  )
+  // sessionStorage 우선 — 뒤로 가기로 돌아올 때 선택 상태 복원.
+  // fallback: URL로 직접 진입한 경우(initialTripId).
+  const [selectedTripId, setSelectedTripId] = useState<string | null>(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem(SESSION_KEY) ?? initialTripId ?? null
+    }
+    return initialTripId ?? null
+  })
 
   const allPoints = useMemo(
     () =>
@@ -55,17 +62,12 @@ export function ExploreMap({ trips, mineOnly, initialTripId }: Props) {
 
   function selectTrip(id: string) {
     setSelectedTripId(id)
-    const params = new URLSearchParams(window.location.search)
-    params.set("trip", id)
-    window.history.pushState({}, "", `/?${params}`)
+    sessionStorage.setItem(SESSION_KEY, id)
   }
 
   function deselectTrip() {
     setSelectedTripId(null)
-    const params = new URLSearchParams(window.location.search)
-    params.delete("trip")
-    const query = params.toString()
-    window.history.replaceState({}, "", query ? `/?${query}` : "/")
+    sessionStorage.removeItem(SESSION_KEY)
   }
 
   return (

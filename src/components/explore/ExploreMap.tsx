@@ -32,10 +32,13 @@ type Trip = {
 type Props = Readonly<{
   trips: Trip[]
   mineOnly: boolean
+  initialTripId?: string
 }>
 
-export function ExploreMap({ trips, mineOnly }: Props) {
-  const [selectedTripId, setSelectedTripId] = useState<string | null>(null)
+export function ExploreMap({ trips, mineOnly, initialTripId }: Props) {
+  const [selectedTripId, setSelectedTripId] = useState<string | null>(
+    initialTripId ?? null,
+  )
 
   const allPoints = useMemo(
     () =>
@@ -50,15 +53,29 @@ export function ExploreMap({ trips, mineOnly }: Props) {
     [trips, selectedTripId],
   )
 
+  function selectTrip(id: string) {
+    setSelectedTripId(id)
+    const params = new URLSearchParams(window.location.search)
+    params.set("trip", id)
+    window.history.pushState({}, "", `/?${params}`)
+  }
+
+  function deselectTrip() {
+    setSelectedTripId(null)
+    const params = new URLSearchParams(window.location.search)
+    params.delete("trip")
+    const query = params.toString()
+    window.history.replaceState({}, "", query ? `/?${query}` : "/")
+  }
+
   return (
     <div className="relative h-[calc(100vh-4rem)] w-full">
-      <KakaoMap
-        className="h-full w-full"
-        fitBoundsPoints={allPoints.length > 0 ? allPoints : undefined}
-      >
+      {/* fitBoundsPoints는 MapViewportController가 단독 관할 — 충돌 방지 */}
+      <KakaoMap className="h-full w-full">
         <MapViewportController
           selectedTripId={selectedTripId}
           selectedTrip={selectedTrip}
+          allPoints={allPoints}
         />
         {trips.map((trip) => (
           <CoursePolyline
@@ -68,7 +85,7 @@ export function ExploreMap({ trips, mineOnly }: Props) {
             points={trip.places}
             color={getCourseColor(trip.id)}
             selectedTripId={selectedTripId}
-            onSelect={setSelectedTripId}
+            onSelect={selectTrip}
           />
         ))}
       </KakaoMap>
@@ -83,7 +100,7 @@ export function ExploreMap({ trips, mineOnly }: Props) {
         <div className="absolute right-4 top-4 z-10">
           <button
             type="button"
-            onClick={() => setSelectedTripId(null)}
+            onClick={deselectTrip}
             className="rounded-full border bg-background/95 px-4 py-1.5 text-sm font-medium shadow-md backdrop-blur-sm hover:bg-accent"
           >
             선택 해제
@@ -96,7 +113,7 @@ export function ExploreMap({ trips, mineOnly }: Props) {
         <div className="absolute bottom-4 left-4 z-10">
           <TripPreviewCard
             trip={selectedTrip}
-            onClose={() => setSelectedTripId(null)}
+            onClose={deselectTrip}
           />
         </div>
       )}
@@ -107,25 +124,56 @@ export function ExploreMap({ trips, mineOnly }: Props) {
   )
 }
 
+function fitTripBounds(
+  map: kakao.maps.Map,
+  places: Array<{ latitude: number; longitude: number }>,
+) {
+  const bounds = new window.kakao.maps.LatLngBounds()
+  places.forEach((p) => bounds.extend(new window.kakao.maps.LatLng(p.latitude, p.longitude)))
+  if (!bounds.isEmpty()) map.setBounds(bounds)
+}
+
+function fitAllPoints(map: kakao.maps.Map, points: Array<{ lat: number; lng: number }>) {
+  const bounds = new window.kakao.maps.LatLngBounds()
+  points.forEach((p) => bounds.extend(new window.kakao.maps.LatLng(p.lat, p.lng)))
+  if (!bounds.isEmpty()) map.setBounds(bounds)
+}
+
 function MapViewportController({
   selectedTripId,
   selectedTrip,
+  allPoints,
 }: Readonly<{
   selectedTripId: string | null
   selectedTrip: Trip | null
+  allPoints: Array<{ lat: number; lng: number }>
 }>) {
   const map = useKakaoMap()
   const savedViewpointRef = useRef<{ lat: number; lng: number; level: number } | null>(null)
   const prevIdRef = useRef<string | null>(null)
+  // map null→인스턴스 전환 시 한 번만 실행되는 초기화 플래그
+  const isInitialMountRef = useRef(true)
 
   useEffect(() => {
     if (!map) return
+
+    if (isInitialMountRef.current) {
+      isInitialMountRef.current = false
+      prevIdRef.current = selectedTripId
+      // URL 직접 진입 시 뷰포인트를 저장하지 않음:
+      // 해제 시 전체 범위로 복귀 (savedViewpoint 없음 분기).
+      if (selectedTripId !== null && selectedTrip && selectedTrip.places.length > 0) {
+        fitTripBounds(map, selectedTrip.places)
+      } else {
+        fitAllPoints(map, allPoints)
+      }
+      return
+    }
 
     const prev = prevIdRef.current
     const next = selectedTripId
     prevIdRef.current = next
 
-    // null → id: 첫 선택 시 현재 뷰 저장
     if (prev === null && next !== null) {
       const center = map.getCenter()
       savedViewpointRef.current = {
@@ -135,23 +183,21 @@ function MapViewportController({
       }
     }
 
-    // 코스 선택됨 → 해당 장소 범위로 지도 이동
     if (next !== null && selectedTrip && selectedTrip.places.length > 0) {
-      const bounds = new window.kakao.maps.LatLngBounds()
-      selectedTrip.places.forEach((p) => {
-        bounds.extend(new window.kakao.maps.LatLng(p.latitude, p.longitude))
-      })
-      if (!bounds.isEmpty()) map.setBounds(bounds)
+      fitTripBounds(map, selectedTrip.places)
     }
 
-    // id → null: 해제 시 저장된 뷰로 복귀
-    if (prev !== null && next === null && savedViewpointRef.current) {
-      const { lat, lng, level } = savedViewpointRef.current
-      map.setCenter(new window.kakao.maps.LatLng(lat, lng))
-      map.setLevel(level)
-      savedViewpointRef.current = null
+    if (prev !== null && next === null) {
+      if (savedViewpointRef.current) {
+        const { lat, lng, level } = savedViewpointRef.current
+        map.setCenter(new window.kakao.maps.LatLng(lat, lng))
+        map.setLevel(level)
+        savedViewpointRef.current = null
+      } else {
+        fitAllPoints(map, allPoints)
+      }
     }
-  }, [map, selectedTripId, selectedTrip])
+  }, [map, selectedTripId, selectedTrip, allPoints])
 
   return null
 }

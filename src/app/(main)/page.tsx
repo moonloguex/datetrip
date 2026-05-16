@@ -7,7 +7,7 @@ import { LoginButtons } from "@/components/auth/LoginButtons"
 import { ExploreMap } from "@/components/explore/ExploreMap"
 import { getPublicTrips } from "@/lib/trips"
 
-type SearchParams = { mine?: string }
+type SearchParams = { mine?: string; trip?: string }
 
 export default async function HomePage({
   searchParams,
@@ -21,7 +21,13 @@ export default async function HomePage({
   }
 
   const params = await searchParams
-  return <ExploreView userId={session.user.id} mineOnly={params.mine === "1"} />
+  return (
+    <ExploreView
+      userId={session.user.id}
+      mineOnly={params.mine === "1"}
+      initialTripId={params.trip}
+    />
+  )
 }
 
 // ─────────── 비로그인: 랜딩 ───────────
@@ -51,13 +57,15 @@ function LandingView() {
 async function ExploreView({
   userId,
   mineOnly,
+  initialTripId,
 }: {
   userId: string
   mineOnly: boolean
+  initialTripId?: string
 }) {
   const trips = await getPublicTrips({
     authorIdFilter: mineOnly ? userId : undefined,
     viewerId: userId, // 본인 비공개 코스도 노출되도록
   })
-  return <ExploreMap trips={trips} mineOnly={mineOnly} />
+  return <ExploreMap trips={trips} mineOnly={mineOnly} initialTripId={initialTripId} />
 }

@@ -3,12 +3,12 @@
 // 선호 태그 저장 서버 액션.
 //
 // 보안: 인증 필수 + 유효 태그만 통과 (화이트리스트 sanitize).
-// 10-B-2에서 추천 캐시 무효화 로직 추가 예정.
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { PREFERENCE_TAG_SET } from "@/lib/preference-tags"
+import { invalidateRecommendationCache } from "@/lib/recommend"
 
 export async function savePreferences(tags: string[]) {
   const session = await auth()
@@ -24,6 +24,8 @@ export async function savePreferences(tags: string[]) {
     where: { id: session.user.id },
     data: { preferences: validated },
   })
+
+  await invalidateRecommendationCache(session.user.id)
 
   revalidatePath("/")
   revalidatePath("/me")

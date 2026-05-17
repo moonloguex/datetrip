@@ -28,7 +28,8 @@ export function OnboardingForm() {
       if (result.ok) {
         // 풀 리로드로 새 HTTP 요청을 보냄.
         // jwt 콜백 fallback이 다음 요청에서 DB 재조회 후 token.nickname을 채움.
-        window.location.href = "/"
+        // 선호 태그 설정으로 자연스럽게 이어짐.
+        window.location.href = "/onboarding/preferences?from=onboarding"
       } else {
         setError(result.error)
       }

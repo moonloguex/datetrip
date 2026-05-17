@@ -3,8 +3,10 @@
 // - 로그인: 지도 탐색 (필터 바 + 지도)
 
 import { auth } from "@/auth"
+import { prisma } from "@/lib/prisma"
 import { LoginButtons } from "@/components/auth/LoginButtons"
 import { ExploreMap } from "@/components/explore/ExploreMap"
+import { PreferenceBanner } from "@/components/PreferenceBanner"
 import { getPublicTrips } from "@/lib/trips"
 
 type SearchParams = { mine?: string; trip?: string }
@@ -20,13 +22,26 @@ export default async function HomePage({
     return <LandingView />
   }
 
-  const params = await searchParams
+  const [params, user] = await Promise.all([
+    searchParams,
+    prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { nickname: true, preferences: true },
+    }),
+  ])
+
+  const showPreferenceBanner =
+    !!user?.nickname && (user.preferences ?? []).length === 0
+
   return (
-    <ExploreView
-      userId={session.user.id}
-      mineOnly={params.mine === "1"}
-      initialTripId={params.trip}
-    />
+    <>
+      {showPreferenceBanner && <PreferenceBanner />}
+      <ExploreView
+        userId={session.user.id}
+        mineOnly={params.mine === "1"}
+        initialTripId={params.trip}
+      />
+    </>
   )
 }
 
@@ -65,7 +80,7 @@ async function ExploreView({
 }) {
   const trips = await getPublicTrips({
     authorIdFilter: mineOnly ? userId : undefined,
-    viewerId: userId, // 본인 비공개 코스도 노출되도록
+    viewerId: userId,
   })
   return <ExploreMap trips={trips} mineOnly={mineOnly} initialTripId={initialTripId} />
 }

@@ -19,6 +19,20 @@
 
 ## 핵심 설계 원칙
 
+### 지도 상태 영속화 패턴 (10-A-4에서 학습)
+
+지도의 선택 상태와 뷰포트는 sessionStorage로 영속화함.
+
+금지: `window.history.pushState`로 상태 영속화. Next.js App Router의
+내부 navigation 스택을 건드리지 않아 뒤로 가기로 돌아왔을 때
+복원이 깨짐.
+
+권장: sessionStorage. 같은 탭 안에서 앞/뒤 이동 시 자연스럽게 복원되고
+새 탭과는 격리됨. 컴포넌트 재마운트 시 useState 초기화 함수에서 읽기.
+
+트레이드오프: "지도 + 선택된 코스" 조합을 URL로 공유할 수 없음.
+데이트립의 공유 가치는 코스 상세 페이지에 있으므로 허용 가능한 손실.
+
 ### 시드와 사용자 콘텐츠는 동일하게 취급한다
 데이트립은 큐레이션된 시드 코스와 사용자가 만든 코스를 동일한 데이터 모델·
 동일한 코드 경로로 다룹니다. `authorId === SYSTEM_CURATOR_ID` 같은 특수 분기는
@@ -85,10 +99,20 @@
 - 1차: claude-haiku-4-5-20251001 (정렬+짧은 이유 생성에 충분)
 - 품질 부족 시: claude-sonnet-4-6 (모델 string 한 줄 교체)
 
+### 선호 태그 동기화 정책
+
+`src/lib/preference-tags.ts`의 ALL_PREFERENCE_TAGS는 시드 데이터의 주제
+태그 분포와 동기화 유지. 시드에 새 주제 태그가 추가되면 이 리스트도 검토.
+
+태그 ID == 라벨 == DB 저장값 (모두 한글 동일). 별도 lookup 테이블 없이
+String[]로 단순 저장. 한국어 외 다국어 도입 시 i18n 레이어 필요.
+
 ### 10단계에서 도입될 스키마 변경
-다음 마이그레이션이 곧 진행됨 (별도 작업으로):
+완료:
+- `User.preferences: String[]` 추가 (온보딩 선호 태그) — 10-A에서 완료
+
+미완료 (별도 작업으로):
 - `Trip.slug: String @unique` 추가
-- `User.preferences: String[]` 추가 (온보딩 선호 태그)
 - `Recommendation` 신규 모델 (userId PK, tripIds, reasons, generatedAt)
 
 ## 보안/환경변수 컨벤션

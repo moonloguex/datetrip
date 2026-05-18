@@ -8,8 +8,8 @@ import { prisma } from "@/lib/prisma"
 import { LoginButtons } from "@/components/auth/LoginButtons"
 import { ExploreMap } from "@/components/explore/ExploreMap"
 import { PreferenceBanner } from "@/components/PreferenceBanner"
-import { RecommendationSection } from "@/components/RecommendationSection"
-import { RecommendationSkeleton } from "@/components/RecommendationSkeleton"
+import { RecommendationFloatingStrip } from "@/components/RecommendationFloatingStrip"
+import { RecommendationStripSkeleton } from "@/components/RecommendationStripSkeleton"
 import { getPublicTrips } from "@/lib/trips"
 
 type SearchParams = { mine?: string; trip?: string }
@@ -86,11 +86,13 @@ async function ExploreView({
     viewerId: userId,
   })
   return (
-    <>
+    <div className="relative">
       <ExploreMap trips={trips} mineOnly={mineOnly} initialTripId={initialTripId} />
-      <Suspense fallback={<RecommendationSkeleton />}>
-        <RecommendationSection userId={userId} />
-      </Suspense>
-    </>
+      <div className="absolute top-4 left-0 right-0 z-10 pointer-events-none">
+        <Suspense fallback={<RecommendationStripSkeleton />}>
+          <RecommendationFloatingStrip userId={userId} />
+        </Suspense>
+      </div>
+    </div>
   )
 }

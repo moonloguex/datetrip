@@ -17,9 +17,10 @@ type Props = {
   trip: TripDetail
   isOwner: boolean
   isLiked: boolean
+  similarSection?: React.ReactNode
 }
 
-export function TripDetailView({ trip, isOwner, isLiked }: Readonly<Props>) {
+export function TripDetailView({ trip, isOwner, isLiked, similarSection }: Readonly<Props>) {
   const color = getCourseColor(trip.id)
 
   const fitBoundsPoints = trip.places.map((p) => ({
@@ -134,6 +135,9 @@ export function TripDetailView({ trip, isOwner, isLiked }: Readonly<Props>) {
             ))}
           </ol>
         </div>
+
+        {/* 비슷한 코스 (page.tsx에서 서버 컴포넌트로 주입) */}
+        {similarSection}
       </div>
 
       {/* 우측 ─ 지도 */}

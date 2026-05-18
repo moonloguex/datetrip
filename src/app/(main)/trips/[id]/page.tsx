@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import { auth } from "@/auth"
 import { getTripById, getLikedTripIds } from "@/lib/trips"
 import { TripDetailView } from "@/components/trip/TripDetailView"
+import { SimilarTripsSection } from "@/components/SimilarTripsSection"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -29,6 +30,11 @@ export default async function TripDetailPage({ params }: Props) {
     : false
 
   return (
-    <TripDetailView trip={trip} isOwner={isOwner} isLiked={isLiked} />
+    <TripDetailView
+      trip={trip}
+      isOwner={isOwner}
+      isLiked={isLiked}
+      similarSection={<SimilarTripsSection tripId={trip.id} />}
+    />
   )
 }

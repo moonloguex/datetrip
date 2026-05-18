@@ -2,11 +2,14 @@
 // - 비로그인: 랜딩 (히어로 + 로그인 CTA)
 // - 로그인: 지도 탐색 (필터 바 + 지도)
 
+import { Suspense } from "react"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { LoginButtons } from "@/components/auth/LoginButtons"
 import { ExploreMap } from "@/components/explore/ExploreMap"
 import { PreferenceBanner } from "@/components/PreferenceBanner"
+import { RecommendationSection } from "@/components/RecommendationSection"
+import { RecommendationSkeleton } from "@/components/RecommendationSkeleton"
 import { getPublicTrips } from "@/lib/trips"
 
 type SearchParams = { mine?: string; trip?: string }
@@ -82,5 +85,12 @@ async function ExploreView({
     authorIdFilter: mineOnly ? userId : undefined,
     viewerId: userId,
   })
-  return <ExploreMap trips={trips} mineOnly={mineOnly} initialTripId={initialTripId} />
+  return (
+    <>
+      <ExploreMap trips={trips} mineOnly={mineOnly} initialTripId={initialTripId} />
+      <Suspense fallback={<RecommendationSkeleton />}>
+        <RecommendationSection userId={userId} />
+      </Suspense>
+    </>
+  )
 }

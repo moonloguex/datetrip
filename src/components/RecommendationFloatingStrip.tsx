@@ -31,7 +31,7 @@ export async function RecommendationFloatingStrip({ userId }: Readonly<Props>) {
         </span>
       </div>
 
-      <div className="overflow-x-auto snap-x snap-mandatory pointer-events-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 pb-2">
+      <div className="overflow-x-auto snap-x snap-mandatory pointer-events-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden pb-2">
         <div className="flex gap-2 w-max">
           {result.recommendations.map((rec) => (
             <Link

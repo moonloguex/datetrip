@@ -86,13 +86,12 @@ async function ExploreView({
     viewerId: userId,
   })
   return (
-    <div className="relative">
-      <ExploreMap trips={trips} mineOnly={mineOnly} initialTripId={initialTripId} />
+    <ExploreMap trips={trips} mineOnly={mineOnly} initialTripId={initialTripId}>
       <div className="absolute bottom-4 left-0 right-0 z-10 pointer-events-none">
         <Suspense fallback={<RecommendationStripSkeleton />}>
           <RecommendationFloatingStrip userId={userId} />
         </Suspense>
       </div>
-    </div>
+    </ExploreMap>
   )
 }

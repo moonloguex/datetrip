@@ -3,7 +3,7 @@
 // 홈 페이지의 지도 + 코스들을 모아 렌더하는 클라이언트 컴포넌트.
 // page.tsx(서버 컴포넌트)에서 trip 데이터를 받아와 props로 전달.
 
-import { useState, useMemo, useEffect, useRef } from "react"
+import { useState, useMemo, useEffect, useRef, type ReactNode } from "react"
 import Link from "next/link"
 import { KakaoMap, useKakaoMap } from "@/components/map/KakaoMap"
 import { CoursePolyline } from "@/components/map/CoursePolyline"
@@ -33,11 +33,12 @@ type Props = Readonly<{
   trips: Trip[]
   mineOnly: boolean
   initialTripId?: string
+  children?: ReactNode
 }>
 
 const SESSION_KEY = "explore-selected-trip"
 
-export function ExploreMap({ trips, mineOnly, initialTripId }: Props) {
+export function ExploreMap({ trips, mineOnly, initialTripId, children }: Props) {
   // sessionStorage 우선 — 뒤로 가기로 돌아올 때 선택 상태 복원.
   // fallback: URL로 직접 진입한 경우(initialTripId).
   const [selectedTripId, setSelectedTripId] = useState<string | null>(() => {
@@ -119,6 +120,9 @@ export function ExploreMap({ trips, mineOnly, initialTripId }: Props) {
           />
         </div>
       )}
+
+      {/* 추천 스트립: 코스 선택 시 숨김 */}
+      {!selectedTripId && children}
 
       {/* 빈 상태 오버레이 */}
       {trips.length === 0 && <EmptyState mineOnly={mineOnly} />}

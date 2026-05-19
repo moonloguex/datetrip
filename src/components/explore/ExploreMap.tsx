@@ -113,7 +113,7 @@ export function ExploreMap({ trips, mineOnly, initialTripId, children }: Props) 
 
       {/* 좌하단: 선택된 코스 미리보기 카드 */}
       {selectedTrip && (
-        <div className="absolute bottom-8 left-6 right-4 z-10">
+        <div className="absolute bottom-8 left-4 right-4 sm:left-12 z-10">
           <TripPreviewCard
             trip={selectedTrip}
             onClose={deselectTrip}

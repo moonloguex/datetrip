@@ -20,7 +20,7 @@ export async function SimilarTripsSection({ tripId }: Props) {
         <h2 className="text-sm font-semibold text-muted-foreground">비슷한 코스</h2>
       </header>
 
-      <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory -mx-6 px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {trips.map((trip) => (
           <RecommendationCard key={trip.id} trip={trip} />
         ))}

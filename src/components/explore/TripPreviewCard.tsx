@@ -28,7 +28,7 @@ export function TripPreviewCard({ trip, onClose }: Readonly<Props>) {
   const color = getCourseColor(trip.id)
 
   return (
-    <div className="w-full sm:w-80 rounded-xl border bg-background/95 shadow-lg backdrop-blur-sm">
+    <div className="w-72 sm:w-80 rounded-xl border bg-background/95 shadow-lg backdrop-blur-sm">
       <div className="flex items-start gap-3 p-4">
         <div
           className="mt-1.5 h-3 w-3 shrink-0 rounded-sm"

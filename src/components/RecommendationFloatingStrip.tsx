@@ -11,7 +11,7 @@ interface Props {
   userId: string
 }
 
-export async function RecommendationFloatingStrip({ userId }: Props) {
+export async function RecommendationFloatingStrip({ userId }: Readonly<Props>) {
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: { preferences: true },
@@ -31,7 +31,7 @@ export async function RecommendationFloatingStrip({ userId }: Props) {
         </span>
       </div>
 
-      <div className="overflow-x-auto snap-x snap-mandatory pointer-events-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 pb-2">
+      <div className="overflow-x-auto snap-x snap-mandatory pointer-events-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-4 px-4 pb-2">
         <div className="flex gap-2 w-max">
           {result.recommendations.map((rec) => (
             <Link

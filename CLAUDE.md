@@ -188,6 +188,30 @@ Edge Runtime 미들웨어는 클라이언트가 보낸 원본 JWT 쿠키만 디�
 - **DB 분리**: 현재 dev와 production이 같은 Neon DB 사용. 사용자 늘면 production / staging / dev 분리 필요.
 - **OAuth 계정 통합**: 같은 사람이 카카오/구글 모두로 로그인하면 별개 User로 생성됨. 이메일 매칭으로 통합하는 Account Linking 검토.
 
+### dev/production DB 분리 (사용자 늘어나면 검토)
+
+현재 dev와 production이 같은 Neon 데이터베이스를 공유.
+
+이점:
+- 환경변수 셋업 단순
+- 본인이 dev에서 만든 데이터를 곧장 production에서 확인 가능
+- 개인 프로젝트 단계에서 운영 부담 최소
+
+미래의 위험:
+- 협업자 추가 시 dev 실험이 production에 영향
+- 실제 사용자가 늘면 dev 작업이 production 사용자 데이터를 건드릴 가능성
+
+분리 시점 트리거:
+- 협업자 1명이라도 합류
+- 실제 사용자 좋아요·코스 작성이 의미 있는 양에 도달
+- production에서 schema 실수로 사용자 데이터 손상 가능성이 현실화
+
+분리 방법:
+- Neon에서 새 프로젝트(예: datetrip-dev) 생성
+- Vercel 환경변수에 production용 DATABASE_URL/DIRECT_URL 유지
+- 로컬 .env.local은 새 dev DB 가리키도록 변경
+- dev DB는 production seed 복제로 초기화
+
 ### 컨텐츠/UX
 - **마이페이지**: 본인 코스 목록, 좋아요한 코스, 닉네임 변경, 계정 삭제 등.
 - **추천 코스 카테고리**: 1단계 컨셉 설계 시 언급된 "그날의 추천 코스" 기능.
@@ -212,6 +236,34 @@ Edge Runtime 미들웨어는 클라이언트가 보낸 원본 JWT 쿠키만 디�
 **우선순위 이유**:
 시드 확장 + AI 추천을 먼저 진행. 데이터 풍부함과 큐레이션 가치를 먼저 키운 후
 사용자가 실제로 코스를 따라가고 싶어할 때 길찾기 추가.
+
+### Prisma 7 메이저 업그레이드 (시점 미정)
+
+현재 Prisma 6 사용. 빌드 시 7 업그레이드 안내 경고 표시됨.
+
+업그레이드 시 검토할 점:
+- schema.prisma 문법 변경 사항 (Breaking changes 문서 확인 필요)
+- Prisma Client 타입 변경으로 인한 코드 영향 범위
+- 마이그레이션 호환성 (기존 migration 파일 재생성 필요 여부)
+- @paralleldrive/cuid2와의 호환성
+
+권장 시점:
+- 11단계 이상 큰 작업 들어가기 전 빈 시간
+- 또는 보안 패치 필요 시점
+- 지금은 동작 영향 없으므로 후순위
+
+### 카카오 지도 컨트롤 (줌·로드뷰) 데스크탑 추가 검토
+
+현재 카카오맵에 컨트롤 미설정 ─ 모바일 우선 의도 (핀치 줌 / 더블 탭 줌 사용).
+
+검토 시점:
+- 데스크탑 사용자가 의미 있게 늘었을 때
+- "지도가 어떻게 줌하는지 모르겠다" 같은 사용자 피드백
+
+추가 방법:
+- ExploreMap 안에서 미디어 쿼리로 조건부 추가
+- map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT)
+- 모바일에선 화면 차지하니 추가 X. window.matchMedia로 sm+ 환경만 적용
 
 ### 사용자 코스 편집 시 좋아요 정책 (11단계 검토)
 현재 사용자가 자기 코스를 편집하면 좋아요는 항상 보존됨. 사용자 수가 늘어

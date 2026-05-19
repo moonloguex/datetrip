@@ -8,7 +8,7 @@ export function RecommendationStripSkeleton() {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="w-[280px] h-[80px] bg-white/85 backdrop-blur rounded-xl flex-shrink-0 animate-pulse"
+            className="w-[240px] sm:w-[280px] h-[80px] bg-white/85 backdrop-blur rounded-xl flex-shrink-0 animate-pulse"
           />
         ))}
       </div>

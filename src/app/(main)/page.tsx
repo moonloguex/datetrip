@@ -88,7 +88,7 @@ async function ExploreView({
   return (
     <div className="relative">
       <ExploreMap trips={trips} mineOnly={mineOnly} initialTripId={initialTripId} />
-      <div className="absolute top-4 left-0 right-0 z-10 pointer-events-none">
+      <div className="absolute bottom-4 left-0 right-0 z-10 pointer-events-none">
         <Suspense fallback={<RecommendationStripSkeleton />}>
           <RecommendationFloatingStrip userId={userId} />
         </Suspense>

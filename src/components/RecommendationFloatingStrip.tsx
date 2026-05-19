@@ -37,9 +37,9 @@ export async function RecommendationFloatingStrip({ userId }: Props) {
             <Link
               key={rec.trip.id}
               href={`/trips/${rec.trip.id}`}
-              className="w-[280px] flex-shrink-0 snap-start pointer-events-auto"
+              className="w-[240px] sm:w-[280px] flex-shrink-0 snap-start pointer-events-auto"
             >
-              <article className="bg-white/95 backdrop-blur rounded-xl shadow-md p-3 hover:bg-white transition-colors">
+              <article className="bg-white/95 backdrop-blur rounded-xl shadow-md p-2.5 sm:p-3 hover:bg-white transition-colors">
                 <div className="flex flex-wrap gap-1 mb-1">
                   {rec.trip.tags.slice(0, 3).map((tag) => (
                     <span key={tag} className="text-[11px] text-gray-500">

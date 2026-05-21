@@ -151,3 +151,17 @@ model Recommendation {
 
   @@index([generatedAt]) // 오래된 캐시 일괄 정리용
 }
+
+// 사용자 문의. /contact 페이지에서 제출됨.
+model Inquiry {
+  id        String   @id @default(cuid())
+  email     String
+  name      String?
+  category  String   // "general" | "bug" | "report" | "other"
+  message   String   @db.Text
+  resolved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([resolved, createdAt])
+}

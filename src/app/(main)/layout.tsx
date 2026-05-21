@@ -2,6 +2,7 @@ import { redirect } from "next/navigation"
 import { auth } from "@/auth"
 import { Header } from "@/components/common/Header"
 import { KakaoMapLoader } from "@/components/map/KakaoMapLoader"
+import { Footer } from "@/components/Footer"
 
 // (main) 그룹: 헤더가 있는 일반 페이지용 레이아웃.
 //
@@ -26,6 +27,7 @@ export default async function MainLayout({
     <>
       <Header />
       {children}
+      <Footer />
       <KakaoMapLoader />
     </>
   )

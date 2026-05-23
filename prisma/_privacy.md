@@ -1,18 +1,9 @@
-import type { Metadata } from "next"
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
-
-export const metadata: Metadata = {
-  title: "개인정보처리방침 - 데이트립",
-}
-
-const PRIVACY_CONTENT = `
 # 데이트립 개인정보처리방침
 
 데이트립(이하 "서비스")은 「개인정보 보호법」 등 관련 법령을 준수하며, 
 이용자의 개인정보를 보호하기 위해 다음과 같은 처리방침을 운영하고 있습니다.
 
-본 방침은 발효일자: 2026년 5월 21일부터 시행됩니다.
+본 방침은 [발효일자: 2026년 5월 21일]부터 시행됩니다.
 
 ## 1. 수집하는 개인정보 항목
 
@@ -79,7 +70,7 @@ const PRIVACY_CONTENT = `
 - 삭제 요구
 - 처리정지 요구
 
-권리 행사는 문의하기(/contact)를 통해 요청해주세요. 본인 확인 후 
+권리 행사는 [문의하기](/contact)를 통해 요청해주세요. 본인 확인 후 
 지체 없이 조치하겠습니다.
 
 회원 탈퇴는 마이페이지에서 직접 가능하며, 탈퇴 시 모든 개인정보가 
@@ -101,10 +92,10 @@ const PRIVACY_CONTENT = `
 ## 9. 개인정보 보호책임자
 
 **개인정보 보호책임자**
-- 이름: 김장문
-- 이메일: moonloguex@gmail.com
+- 이름: [김장문]
+- 이메일: [moonloguex@gmail.com]
 
-문의는 문의하기(/contact)를 통해 보내주세요.
+문의는 [문의하기](/contact)를 통해 보내주세요.
 
 ## 10. 개인정보 처리방침 변경
 
@@ -118,12 +109,3 @@ const PRIVACY_CONTENT = `
 - 개인정보침해신고센터 (privacy.kisa.or.kr)
 - 대검찰청 사이버수사과 (1301)
 - 경찰청 사이버수사국 (cyberbureau.police.go.kr)
-`
-
-export default function PrivacyPage() {
-  return (
-    <main className="mx-auto max-w-3xl px-4 py-12 prose prose-sm sm:prose-base">
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{PRIVACY_CONTENT}</ReactMarkdown>
-    </main>
-  )
-}

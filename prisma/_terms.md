@@ -1,11 +1,6 @@
-import type { Metadata } from "next"
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
-
-const PRIVACY_CONTENT = `
 # 데이트립 이용약관
 
-발효일자: 2026년 5월 21일
+[발효일자: 2026년 5월 21일]
 
 ## 제1조 (목적)
 
@@ -91,17 +86,4 @@ const PRIVACY_CONTENT = `
 ---
 
 부칙
-본 약관은 발효일자부터 시행됩니다.
-`
-
-export const metadata: Metadata = {
-  title: "이용약관 - 데이트립",
-}
-
-export default function TermsPage() {
-  return (
-    <main className="mx-auto max-w-3xl px-4 py-12 prose prose-sm sm:prose-base">
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{PRIVACY_CONTENT}</ReactMarkdown>
-    </main>
-  )
-}
+본 약관은 [발효일자]부터 시행됩니다.

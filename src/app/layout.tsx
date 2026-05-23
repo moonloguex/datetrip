@@ -10,8 +10,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "데이트립",
+  title: { default: "데이트립", template: "%s | 데이트립" },
   description: "나만의 데이트 코스를 만들고 공유하세요",
+  metadataBase: new URL("https://datetrip-smoky.vercel.app"),
+  openGraph: {
+    type: "website",
+    siteName: "데이트립",
+    locale: "ko_KR",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({

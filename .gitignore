@@ -42,3 +42,9 @@ next-env.d.ts
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+# 시드 검증용 샘플 이미지 (Blob에 올라가면 로컬 불필요)
+scripts/sample-images/*.jpg
+scripts/sample-images/*.jpeg
+scripts/sample-images/*.png
+scripts/sample-images/*.webp

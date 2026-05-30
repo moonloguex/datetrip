@@ -118,6 +118,9 @@ model Place {
   // 사용자가 추가한 정보 ─ 데이트립의 차별 가치
   order        Int      // 코스 내 순서
   memo         String?
+  // Vercel Blob URL. null이면 12-B에서 폴백 카드(그라데이션+장소명) 렌더.
+  // 장소당 1장 정책 (캐러셀 슬라이드 = 장소 1:1).
+  imageUrl     String?
 
   tripId       String
   trip         Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)

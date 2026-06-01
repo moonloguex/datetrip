@@ -50,7 +50,7 @@ export function CourseImageCarousel({ places, activeIndex, onActiveChange }: Rea
             key={place.id}
             className="relative min-w-0 flex-[0_0_85%] sm:flex-[0_0_70%] mr-3 first:ml-3"
           >
-            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
+            <div className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden">
               {place.imageUrl ? (
                 <Image
                   src={place.imageUrl}

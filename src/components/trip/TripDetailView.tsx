@@ -87,10 +87,19 @@ export function TripDetailView({ trip, isOwner, isLiked, similarSection }: Reado
             onActiveChange={setActiveIndex}
           />
           {activePlace && (
-            <div className="mt-2 px-4 text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">{activePlace.name}</span>
-              {activePlace.category && (
-                <span className="ml-1.5">{activePlace.category}</span>
+            <div className="px-4 pt-3 pb-1">
+              <div className="flex items-baseline gap-2">
+                <span className="text-sm font-semibold text-violet-500">
+                  {activeIndex + 1}
+                </span>
+                <h3 className="text-base font-semibold text-foreground">
+                  {activePlace.name}
+                </h3>
+              </div>
+              {activePlace.memo && (
+                <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
+                  {activePlace.memo}
+                </p>
               )}
             </div>
           )}
@@ -173,7 +182,11 @@ export function TripDetailView({ trip, isOwner, isLiked, similarSection }: Reado
             {trip.places.map((place, idx) => (
               <li
                 key={place.id}
-                className="rounded-lg border p-4 cursor-pointer transition-colors hover:bg-accent/50"
+                className={`rounded-lg border p-4 cursor-pointer transition-colors ${
+                  activeIndex === idx
+                    ? "border-violet-400 bg-violet-50 dark:bg-violet-950/30"
+                    : "hover:bg-accent/50"
+                }`}
                 onClick={() => setActiveIndex(idx)}
               >
                 <div className="flex items-start gap-3">

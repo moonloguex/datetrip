@@ -25,6 +25,8 @@ type Props = Readonly<{
   color: string
   selectedTripId: string | null
   onSelect: (id: string) => void
+  activePlaceIndex?: number
+  onPlaceSelect?: (idx: number) => void
 }>
 
 export function CoursePolyline({
@@ -33,6 +35,8 @@ export function CoursePolyline({
   color,
   selectedTripId,
   onSelect,
+  activePlaceIndex,
+  onPlaceSelect,
 }: Props) {
   const map = useKakaoMap()
   const polylineRef = useRef<kakao.maps.Polyline | null>(null)
@@ -118,6 +122,7 @@ export function CoursePolyline({
       })
       dot.addEventListener("click", () => {
         onSelect(tripId)
+        onPlaceSelect?.(idx)
       })
 
       const overlay = new window.kakao.maps.CustomOverlay({
@@ -158,10 +163,18 @@ export function CoursePolyline({
       strokeOpacity: isOtherSelected ? 0.25 : 0.85,
     })
 
-    dots.forEach((dot) => {
+    dots.forEach((dot, idx) => {
       dot.style.opacity = isOtherSelected ? "0.25" : "1"
+
+      // 캐러셀 활성 장소 강조
+      const isActive = activePlaceIndex === idx
+      dot.style.transform = isActive ? "scale(1.6)" : "scale(1)"
+      dot.style.border = isActive ? "3px solid white" : "2px solid white"
+      dot.style.boxShadow = isActive
+        ? "0 0 0 3px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.4)"
+        : "0 1px 3px rgba(0,0,0,0.3)"
     })
-  }, [selectedTripId, tripId])
+  }, [selectedTripId, tripId, activePlaceIndex])
 
   return null
 }

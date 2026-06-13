@@ -236,4 +236,120 @@ export const SEED_TRIPS: SeedTrip[] = [
       { name: "윤동주문학관", region: "종로구 청운동", memo: "시인의 자취" },
     ],
   },
+
+  // ─── 을지로/종로 (3) ───
+  {
+    slug: "euljiro-hip-night-v1",
+    title: "을지로 힙지로 밤마실",
+    description: "낡은 인쇄골목 사이 숨은 노포와 루프탑 바를 잇는 을지로의 밤",
+    region: "을지로",
+    tags: ["야경", "활기찬", "미식"],
+    places: [
+      { name: "을지로3가역", region: "중구 을지로3가", memo: "힙지로 탐방의 출발점" },
+      { name: "을지면옥", region: "중구 주교동", memo: "노포 평양냉면의 정석" },
+      { name: "호프", region: "중구 을지로3가", memo: "골목 안 숨은 맥주집 분위기" },
+      { name: "을지로 노가리골목", region: "중구 을지로3가", memo: "저녁이면 활기찬 노상" },
+      { name: "청계천", region: "중구 장교동", memo: "야경 산책으로 마무리" },
+    ],
+  },
+  {
+    slug: "ikseon-hanok-date-v1",
+    title: "익선동 한옥 데이트",
+    description: "좁은 한옥 골목에 모인 감성 카페와 소품숍을 둘러보는 데이트",
+    region: "익선동",
+    tags: ["전통", "카페", "데이트"],
+    places: [
+      { name: "익선동 한옥거리", region: "종로구 익선동", memo: "한옥 개조 카페 골목" },
+      { name: "낙원악기상가", region: "종로구 낙원동", memo: "옥상정원과 예술영화관" },
+      { name: "창덕궁", region: "종로구 와룡동", memo: "후원이 아름다운 궁궐" },
+      { name: "익선동 거리", region: "종로구 익선동", memo: "한옥 사이 소품숍 골목" },
+    ],
+  },
+  {
+    slug: "gwangjang-market-food-v1",
+    title: "광장시장 먹거리 투어",
+    description: "빈대떡과 마약김밥, 육회까지 전통시장의 먹거리를 정복하는 코스",
+    region: "종로",
+    tags: ["미식", "전통", "활기찬"],
+    places: [
+      { name: "광장시장", region: "종로구 예지동", memo: "먹거리 투어의 중심" },
+      { name: "광장시장 마약김밥", region: "종로구 예지동", memo: "줄 서서 먹는 명물" },
+      { name: "부촌육회", region: "종로구 예지동", memo: "신선한 생육회" },
+      { name: "방산시장", region: "중구 을지로5가", memo: "식후 구경거리 골목" },
+      { name: "청계천", region: "종로구 장사동", memo: "산책으로 소화" },
+    ],
+  },
+
+  // ─── 망원/상수 (2) ───
+  {
+    slug: "mangwon-market-walk-v1",
+    title: "망원 시장 맛집 산책",
+    description: "망원시장 먹거리와 망원한강공원을 잇는 동네 정취 가득한 코스",
+    region: "망원",
+    tags: ["미식", "산책", "활기찬"],
+    places: [
+      { name: "망원시장", region: "마포구 망원동", memo: "고로케·닭강정으로 유명" },
+      { name: "포비 망원", region: "마포구 망원동", memo: "베이글과 커피" },
+      { name: "망원한강공원", region: "마포구 망원동", memo: "노을 명소 한강뷰" },
+      { name: "카페 망리단길", region: "마포구 망원동", memo: "망리단길 감성 카페거리" },
+    ],
+  },
+  {
+    slug: "sangsu-indie-night-v1",
+    title: "상수 인디 음악 코스",
+    description: "상수동의 라이브 클럽과 골목 카페로 채우는 인디 감성 저녁",
+    region: "상수",
+    tags: ["활기찬", "예술", "카페"],
+    places: [
+      { name: "상수역", region: "마포구 상수동", memo: "골목 탐방의 시작" },
+      { name: "제비다방", region: "마포구 상수동", memo: "인디 공연이 열리는 명소" },
+      { name: "클럽 빵", region: "마포구 서교동", memo: "역사 깊은 인디 라이브 클럽" },
+      { name: "절두산순교성지", region: "마포구 합정동", memo: "한강뷰로 마무리" },
+    ],
+  },
+
+  // ─── 청담/압구정 (1) ───
+  {
+    slug: "cheongdam-luxury-walk-v1",
+    title: "청담 명품거리 산책",
+    description: "명품 플래그십과 고급 디저트, 갤러리가 늘어선 청담동 워크",
+    region: "청담",
+    tags: ["트렌디", "예술", "디저트"],
+    places: [
+      { name: "청담동 명품거리", region: "강남구 청담동", memo: "플래그십 스토어 거리" },
+      { name: "House of Dior 청담", region: "강남구 청담동", memo: "건축이 멋진 플래그십" },
+      { name: "송은아트스페이스", region: "강남구 청담동", memo: "현대미술 전시 공간" },
+      { name: "분더샵 청담", region: "강남구 청담동", memo: "편집숍 쇼핑" },
+    ],
+  },
+
+  // ─── 서울숲/뚝섬 (1) ───
+  {
+    slug: "seoulforest-green-date-v1",
+    title: "서울숲 자연 데이트",
+    description: "도심 속 숲과 사슴 방사장, 카페거리를 잇는 초록 데이트",
+    region: "서울숲",
+    tags: ["자연", "산책", "데이트"],
+    places: [
+      { name: "서울숲", region: "성동구 성수동1가", memo: "사슴 방사장과 너른 잔디밭" },
+      { name: "언더스탠드에비뉴", region: "성동구 성수동1가", memo: "컨테이너 복합 공간" },
+      { name: "성수연방", region: "성동구 성수동2가", memo: "옥상정원이 있는 카페" },
+      { name: "뚝섬한강공원", region: "성동구 자양동", memo: "한강 자전거 산책" },
+    ],
+  },
+
+  // ─── 여의도 (1) ───
+  {
+    slug: "yeouido-river-night-v1",
+    title: "여의도 한강 야경 코스",
+    description: "더현대 쇼핑부터 한강공원 야경까지 즐기는 여의도 코스",
+    region: "여의도",
+    tags: ["야경", "산책", "데이트"],
+    places: [
+      { name: "더현대 서울", region: "영등포구 여의도동", memo: "사운즈포레스트 실내 정원" },
+      { name: "여의도한강공원", region: "영등포구 여의도동", memo: "야경과 치맥 명소" },
+      { name: "물빛광장", region: "영등포구 여의도동", memo: "분수쇼가 열리는 광장" },
+      { name: "63스퀘어", region: "영등포구 여의도동", memo: "전망대에서 보는 한강" },
+    ],
+  },
 ]

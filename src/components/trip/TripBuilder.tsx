@@ -101,6 +101,12 @@ export function TripBuilder(props: Props) {
     )
   }
 
+  function handleImageChange(kakaoPlaceId: string, imageUrl: string | null) {
+    setPlaces((prev) =>
+      prev.map((p) => (p.kakaoPlaceId === kakaoPlaceId ? { ...p, imageUrl } : p)),
+    )
+  }
+
   function handleAddTag() {
     const trimmed = tagInput.trim()
     if (!trimmed || tags.includes(trimmed) || tags.length >= 5) return
@@ -131,6 +137,7 @@ export function TripBuilder(props: Props) {
         latitude: p.latitude,
         longitude: p.longitude,
         memo: p.memo,
+        imageUrl: p.imageUrl ?? null,
       })),
     }
 
@@ -305,6 +312,7 @@ export function TripBuilder(props: Props) {
             onReorder={handleReorder}
             onRemove={handleRemove}
             onMemoChange={handleMemoChange}
+            onImageChange={handleImageChange}
           />
         </div>
       </div>

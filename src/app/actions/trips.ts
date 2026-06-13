@@ -22,6 +22,7 @@ export type CreateTripInput = {
     latitude: number
     longitude: number
     memo?: string
+    imageUrl?: string | null
   }>
 }
 
@@ -78,6 +79,7 @@ export async function createTrip(
             latitude: place.latitude,
             longitude: place.longitude,
             memo: place.memo?.trim() || null,
+            imageUrl: place.imageUrl ?? null,
             order: index + 1,
           })),
         },
@@ -160,6 +162,7 @@ export async function updateTrip(
               latitude: place.latitude,
               longitude: place.longitude,
               memo: place.memo?.trim() || null,
+              imageUrl: place.imageUrl ?? null,
               order: index + 1,
             })),
           },

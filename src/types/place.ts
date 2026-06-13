@@ -18,4 +18,5 @@ export type DraftPlace = {
   latitude: number
   longitude: number
   memo: string
+  imageUrl?: string | null
 }

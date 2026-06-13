@@ -40,10 +40,9 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "성수",
     tags: ["카페", "감성", "데이트"],
     places: [
-      { name: "어니언 성수", region: "성수동", memo: "넓고 분위기 좋은 본점. 사진 명소" },
-      { name: "센터커피 성수점", region: "성수동", memo: "스페셜티 커피로 유명" },
-      { name: "대림창고", region: "성수동", memo: "갤러리 분위기 카페" },
-      { name: "블루보틀 성수", region: "성수동", memo: "국내 1호점. 항상 인기" },
+      { name: "어니언 성수", region: "성수동", memo: "넓고 분위기 좋은 본점. 사진 명소", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20190130_120%2F1548821831784g8Y7T_JPEG%2FwJlWCsWmdut805DTzoZoRWil.jpeg.jpg" },
+      { name: "대림창고", region: "성수동", memo: "갤러리 분위기 카페", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220705_65%2F1656959975574rVrxW_JPEG%2FKakaoTalk_Photo_2022-07-05-03-39-02_001.jpeg" },
+      { name: "블루보틀 성수", region: "성수동", memo: "국내 1호점. 항상 인기", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fblogfiles.pstatic.net%2FMjAyNjA1MDhfMTg3%2FMDAxNzc4MjUwMDY5MTIw.BOG-BvtLbPjB8sQ7nwMnD_qDQ-7DAWjKwzumkP133OIg.WtulBiIigPfVyTp-epxvqJj7vQlrIuKvdyDFNudYDrog.JPEG%2FBBCK_SS_2_Sub_PC__2220x1232_a0b0919b-1c01-4f05-a681-e4762269a7b8.jpg%2F1232x1232" },
     ],
   },
   {
@@ -53,10 +52,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "연남",
     tags: ["산책", "조용한", "카페"],
     places: [
-      { name: "경의선숲길", region: "연남동", memo: "일명 연트럴파크. 여유로운 산책로" },
-      { name: "노티드", region: "연남동", memo: "달콤한 시그니처 도넛" },
-      { name: "매뉴팩트커피", region: "연남동", memo: "로스터리 커피" },
-      { name: "어반플랜트 연남", region: "연남동", memo: "식물 가득한 공간" },
+      { name: "경의선숲길", region: "연남동", memo: "일명 연트럴파크. 여유로운 산책로", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20150429_149%2F1430304417189s1n7i_JPEG%2Fh8jKXoLh5lqj0mN8a9n6Zt3H.jpeg.jpg" },
+      { name: "노티드", region: "연남동", memo: "달콤한 시그니처 도넛", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
+      { name: "매뉴팩트커피", region: "연남동", memo: "로스터리 커피", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
+      { name: "어반플랜트 연남", region: "연남동", memo: "식물 가득한 공간", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
     ],
   },
   {
@@ -66,10 +65,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "연희",
     tags: ["조용한", "책", "데이트"],
     places: [
-      { name: "사러가쇼핑센터", region: "연희동", memo: "동네의 작은 랜드마크" },
-      { name: "책방 1984", region: "연희동", memo: "독립서점" },
-      { name: "매뉴팩트커피 연희", region: "연희동", memo: "넓고 차분한 카페" },
-      { name: "테일러커피 연희", region: "연희동", memo: "찻집 분위기" },
+      { name: "사러가쇼핑센터", region: "연희동", memo: "동네의 작은 랜드마크", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
+      { name: "책방 1984", region: "연희동", memo: "독립서점", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
+      { name: "매뉴팩트커피 연희", region: "연희동", memo: "넓고 차분한 카페", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
+      { name: "테일러커피 연희", region: "연희동", memo: "찻집 분위기", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
     ],
   },
   {
@@ -79,10 +78,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "성수",
     tags: ["트렌디", "쇼핑", "카페"],
     places: [
-      { name: "LCDC 서울", region: "성수동", memo: "복합 문화 공간" },
-      { name: "누데이크 성수", region: "성수동", memo: "비주얼이 예술인 디저트" },
-      { name: "자그마치", region: "성수동", memo: "디자인 카페" },
-      { name: "메쉬커피", region: "성수동", memo: "스페셜티 커피" },
+      { name: "LCDC 서울", region: "성수동", memo: "복합 문화 공간", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
+      { name: "누데이크 성수", region: "성수동", memo: "비주얼이 예술인 디저트", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
+      { name: "자그마치", region: "성수동", memo: "디자인 카페", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
+      { name: "메쉬커피", region: "성수동", memo: "스페셜티 커피", imageUrl: "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210510_184%2F1620634845434rVrxW_JPEG%2FKakaoTalk_Photo_2021-05-10-10-40-45_001.jpeg" },
     ],
   },
 

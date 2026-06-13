@@ -8,9 +8,15 @@
 // 캐러셀 스와이프 → 지도 pan + 마커 강조
 // 마커 클릭 → 캐러셀 스크롤 (양방향 동기화)
 
-import { useState, useEffect } from "react"
+import { Fragment, useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import {
+  haversineKm,
+  travelMinutes,
+  formatDistance,
+  type TravelMode,
+} from "@/lib/distance"
 import { KakaoMap } from "@/components/map/KakaoMap"
 import { useKakaoMap } from "@/components/map/KakaoMap"
 import { CoursePolyline } from "@/components/map/CoursePolyline"
@@ -25,6 +31,56 @@ type Props = {
   isLiked: boolean
   isAuthenticated: boolean
   similarSection?: React.ReactNode
+}
+
+function TravelModeToggle({
+  mode,
+  onChange,
+}: {
+  mode: TravelMode
+  onChange: (m: TravelMode) => void
+}) {
+  return (
+    <div className="inline-flex rounded-full bg-muted p-0.5 text-xs">
+      {(["walk", "drive"] as const).map((m) => (
+        <button
+          key={m}
+          type="button"
+          aria-pressed={mode === m}
+          onClick={() => onChange(m)}
+          className={`rounded-full px-3 py-1 transition-colors ${
+            mode === m
+              ? "bg-background text-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          {m === "walk" ? "도보" : "차량"}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function TravelChip({
+  from,
+  to,
+  mode,
+}: {
+  from: { latitude: number; longitude: number }
+  to: { latitude: number; longitude: number }
+  mode: TravelMode
+}) {
+  const km = haversineKm(from.latitude, from.longitude, to.latitude, to.longitude)
+  const minutes = travelMinutes(km, mode)
+  const label = mode === "walk" ? "도보" : "차량"
+  return (
+    <li aria-hidden className="flex items-center gap-1.5 pl-10 py-0.5">
+      <span className="h-3 w-px bg-border shrink-0" />
+      <span className="text-xs text-muted-foreground">
+        {label} {minutes}분 · {formatDistance(km)}
+      </span>
+    </li>
+  )
 }
 
 // KakaoMap children 안에서 map 인스턴스에 접근해 특정 장소로 이동
@@ -56,6 +112,8 @@ export function TripDetailView({ trip, isOwner, isLiked, isAuthenticated, simila
 
   const activePlace = trip.places[activeIndex]
   const hasAnyImage = trip.places.some((p) => p.imageUrl)
+  const [travelMode, setTravelMode] = useState<TravelMode>("walk")
+  const showTravel = trip.places.length >= 2
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
@@ -164,13 +222,18 @@ export function TripDetailView({ trip, isOwner, isLiked, isAuthenticated, simila
 
         {/* 장소 리스트 */}
         <div className="space-y-3 p-6">
-          <h2 className="text-sm font-semibold text-muted-foreground">
-            코스 ({trip.places.length}개 장소)
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-muted-foreground">
+              코스 ({trip.places.length}개 장소)
+            </h2>
+            {showTravel && (
+              <TravelModeToggle mode={travelMode} onChange={setTravelMode} />
+            )}
+          </div>
           <ol className="space-y-3">
             {trip.places.map((place, idx) => (
+              <Fragment key={place.id}>
               <li
-                key={place.id}
                 className={`rounded-lg border p-4 cursor-pointer transition-colors ${
                   activeIndex === idx
                     ? "border-violet-400 bg-violet-50 dark:bg-violet-950/30"
@@ -233,6 +296,14 @@ export function TripDetailView({ trip, isOwner, isLiked, isAuthenticated, simila
                   </div>
                 </div>
               </li>
+              {showTravel && idx < trip.places.length - 1 && (
+                <TravelChip
+                  from={place}
+                  to={trip.places[idx + 1]}
+                  mode={travelMode}
+                />
+              )}
+              </Fragment>
             ))}
           </ol>
         </div>

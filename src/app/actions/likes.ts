@@ -34,9 +34,9 @@ export async function toggleLike(tripId: string): Promise<ToggleLikeResult> {
         const updated = await tx.trip.update({
           where: { id: tripId },
           data: { likeCount: { decrement: 1 } },
-          select: { likeCount: true },
+          select: { likeCount: true, slug: true },
         })
-        return { liked: false, likeCount: updated.likeCount }
+        return { liked: false, likeCount: updated.likeCount, slug: updated.slug }
       } else {
         await tx.like.create({
           data: { userId, tripId },
@@ -44,16 +44,16 @@ export async function toggleLike(tripId: string): Promise<ToggleLikeResult> {
         const updated = await tx.trip.update({
           where: { id: tripId },
           data: { likeCount: { increment: 1 } },
-          select: { likeCount: true },
+          select: { likeCount: true, slug: true },
         })
-        return { liked: true, likeCount: updated.likeCount }
+        return { liked: true, likeCount: updated.likeCount, slug: updated.slug }
       }
     })
 
     revalidatePath("/")
-    revalidatePath(`/trips/${tripId}`)
+    revalidatePath(`/trips/${result.slug ?? tripId}`)
 
-    return { ok: true, ...result }
+    return { ok: true, liked: result.liked, likeCount: result.likeCount }
   } catch (error) {
     console.error("[toggleLike] error:", error)
     return { ok: false, error: "좋아요 처리에 실패했어요" }

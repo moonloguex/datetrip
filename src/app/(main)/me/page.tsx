@@ -2,6 +2,10 @@ import { redirect } from "next/navigation"
 import Link from "next/link"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
+import { getMyTrips, getLikedTrips } from "@/lib/trips"
+import { NicknameEditor } from "@/components/me/NicknameEditor"
+import { MyPageTabs } from "@/components/me/MyPageTabs"
+import { DeleteAccountDialog } from "@/components/me/DeleteAccountDialog"
 
 export default async function MePage() {
   const session = await auth()
@@ -9,22 +13,26 @@ export default async function MePage() {
     redirect("/")
   }
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { nickname: true, preferences: true },
-  })
+  const [user, myTrips, likedTrips] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { nickname: true, preferences: true },
+    }),
+    getMyTrips(session.user.id),
+    getLikedTrips(session.user.id),
+  ])
 
   if (!user) {
     redirect("/")
   }
 
   return (
-    <main className="mx-auto max-w-screen-sm px-4 py-8 space-y-8">
+    <main className="mx-auto max-w-screen-sm space-y-10 px-4 py-8">
       <h1 className="text-2xl font-bold">마이페이지</h1>
 
       <section className="space-y-3">
         <h2 className="text-base font-semibold">닉네임</h2>
-        <p className="text-sm text-muted-foreground">{user.nickname}</p>
+        <NicknameEditor initialNickname={user.nickname} />
       </section>
 
       <section className="space-y-3">
@@ -60,6 +68,14 @@ export default async function MePage() {
           </p>
         )}
       </section>
+
+      <section>
+        <MyPageTabs myTrips={myTrips} likedTrips={likedTrips} />
+      </section>
+
+      <div className="border-t pt-8 text-center">
+        <DeleteAccountDialog />
+      </div>
     </main>
   )
 }

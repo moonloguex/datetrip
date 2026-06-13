@@ -19,6 +19,7 @@ type CreateProps = { mode: "create" }
 type EditProps = {
   mode: "edit"
   tripId: string
+  tripSlug?: string
   initial: InitialValues
 }
 type Props = CreateProps | EditProps
@@ -146,7 +147,7 @@ export function TripBuilder(props: Props) {
         const result = await updateTrip({ ...payload, tripId: props.tripId })
         if (result.ok) {
           toast.success("코스를 수정했어요")
-          router.push(`/trips/${props.tripId}`)
+          router.push(`/trips/${props.tripSlug ?? props.tripId}`)
         } else {
           toast.error(result.error)
         }
@@ -155,7 +156,10 @@ export function TripBuilder(props: Props) {
   }
 
   const pageTitle = props.mode === "create" ? "새 코스 만들기" : "코스 수정"
-  const backLink = props.mode === "create" ? "/" : `/trips/${props.tripId}`
+  const backLink =
+    props.mode === "create"
+      ? "/"
+      : `/trips/${props.tripSlug ?? props.tripId}`
 
   return (
     <div className="grid h-[calc(100vh-4rem)] grid-cols-[minmax(380px,2fr)_3fr]">

@@ -1,16 +1,16 @@
 import { notFound } from "next/navigation"
 import { auth } from "@/auth"
-import { getTripById, getLikedTripIds } from "@/lib/trips"
+import { getTripBySlug, getLikedTripIds } from "@/lib/trips"
 import { TripDetailView } from "@/components/trip/TripDetailView"
 import { SimilarTripsSection } from "@/components/SimilarTripsSection"
 
 type Props = {
-  params: Promise<{ id: string }>
+  params: Promise<{ slug: string }>
 }
 
 export default async function TripDetailPage({ params }: Props) {
-  const { id } = await params
-  const trip = await getTripById(id)
+  const { slug } = await params
+  const trip = await getTripBySlug(slug)
 
   if (!trip) {
     notFound()
@@ -34,6 +34,7 @@ export default async function TripDetailPage({ params }: Props) {
       trip={trip}
       isOwner={isOwner}
       isLiked={isLiked}
+      isAuthenticated={viewerId !== null}
       similarSection={<SimilarTripsSection tripId={trip.id} />}
     />
   )

@@ -1,21 +1,21 @@
 import { notFound, redirect } from "next/navigation"
 import { auth } from "@/auth"
-import { getTripById } from "@/lib/trips"
+import { getTripBySlug } from "@/lib/trips"
 import { TripBuilder, type InitialValues } from "@/components/trip/TripBuilder"
 
 type Props = {
-  params: Promise<{ id: string }>
+  params: Promise<{ slug: string }>
 }
 
 export default async function EditTripPage({ params }: Props) {
-  const { id } = await params
+  const { slug } = await params
   const session = await auth()
 
   if (!session?.user?.id) {
     redirect("/login")
   }
 
-  const trip = await getTripById(id)
+  const trip = await getTripBySlug(slug)
   if (!trip) {
     notFound()
   }
@@ -44,5 +44,12 @@ export default async function EditTripPage({ params }: Props) {
     })),
   }
 
-  return <TripBuilder mode="edit" tripId={trip.id} initial={initial} />
+  return (
+    <TripBuilder
+      mode="edit"
+      tripId={trip.id}
+      tripSlug={trip.slug ?? undefined}
+      initial={initial}
+    />
+  )
 }

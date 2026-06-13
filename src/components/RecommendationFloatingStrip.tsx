@@ -36,7 +36,7 @@ export async function RecommendationFloatingStrip({ userId }: Readonly<Props>) {
           {result.recommendations.map((rec) => (
             <Link
               key={rec.trip.id}
-              href={`/trips/${rec.trip.id}`}
+              href={`/trips/${rec.trip.slug ?? rec.trip.id}`}
               className="w-[240px] sm:w-[280px] flex-shrink-0 snap-start pointer-events-auto"
             >
               <article className="bg-white/95 backdrop-blur rounded-xl shadow-md p-2.5 sm:p-3 hover:bg-white transition-colors">

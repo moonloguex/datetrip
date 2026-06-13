@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button"
 
 type Trip = {
   id: string
+  slug: string | null
   title: string
   description: string | null
   region: string | null
@@ -33,12 +34,13 @@ type Props = Readonly<{
   trips: Trip[]
   mineOnly: boolean
   initialTripId?: string
+  isAuthenticated: boolean
   children?: ReactNode
 }>
 
 const SESSION_KEY = "explore-selected-trip"
 
-export function ExploreMap({ trips, mineOnly, initialTripId, children }: Props) {
+export function ExploreMap({ trips, mineOnly, initialTripId, isAuthenticated, children }: Props) {
   // sessionStorage 우선 — 뒤로 가기로 돌아올 때 선택 상태 복원.
   // fallback: URL로 직접 진입한 경우(initialTripId).
   const [selectedTripId, setSelectedTripId] = useState<string | null>(() => {
@@ -93,10 +95,12 @@ export function ExploreMap({ trips, mineOnly, initialTripId, children }: Props) 
         ))}
       </KakaoMap>
 
-      {/* 좌상단: 필터 바 */}
-      <div className="absolute left-4 top-4 z-10">
-        <MapFilterBar />
-      </div>
+      {/* 좌상단: 필터 바 (로그인 사용자만) */}
+      {isAuthenticated && (
+        <div className="absolute left-4 top-4 z-10">
+          <MapFilterBar />
+        </div>
+      )}
 
       {/* 우상단: 선택 해제 버튼 (코스 선택 시에만) */}
       {selectedTripId && (
@@ -125,7 +129,7 @@ export function ExploreMap({ trips, mineOnly, initialTripId, children }: Props) 
       {!selectedTripId && children}
 
       {/* 빈 상태 오버레이 */}
-      {trips.length === 0 && <EmptyState mineOnly={mineOnly} />}
+      {trips.length === 0 && <EmptyState mineOnly={mineOnly} isAuthenticated={isAuthenticated} />}
     </div>
   )
 }
@@ -208,7 +212,10 @@ function MapViewportController({
   return null
 }
 
-function EmptyState({ mineOnly }: Readonly<{ mineOnly: boolean }>) {
+function EmptyState({ mineOnly, isAuthenticated }: Readonly<{ mineOnly: boolean; isAuthenticated: boolean }>) {
+  const ctaHref = isAuthenticated ? "/trips/new" : "/login"
+  const ctaLabel = isAuthenticated ? "+ 새 코스 만들기" : "로그인하고 시작하기"
+
   return (
     <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
       <div className="pointer-events-auto flex flex-col items-center gap-4 rounded-2xl border bg-background/95 px-8 py-10 shadow-xl backdrop-blur-sm">
@@ -220,8 +227,8 @@ function EmptyState({ mineOnly }: Readonly<{ mineOnly: boolean }>) {
             ? "마음에 드는 장소들을 모아 첫 코스를 만들어보세요"
             : "첫 코스의 주인공이 되어보세요"}
         </p>
-        <Button render={<Link href="/trips/new" />} size="sm" nativeButton={false}>
-          + 새 코스 만들기
+        <Button render={<Link href={ctaHref} />} size="sm" nativeButton={false}>
+          {ctaLabel}
         </Button>
       </div>
     </div>

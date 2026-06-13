@@ -22,6 +22,7 @@ type Props = {
   trip: TripDetail
   isOwner: boolean
   isLiked: boolean
+  isAuthenticated: boolean
   similarSection?: React.ReactNode
 }
 
@@ -43,7 +44,7 @@ function MapPanController({
   return null
 }
 
-export function TripDetailView({ trip, isOwner, isLiked, similarSection }: Readonly<Props>) {
+export function TripDetailView({ trip, isOwner, isLiked, isAuthenticated, similarSection }: Readonly<Props>) {
   const color = getCourseColor(trip.id)
   const [activeIndex, setActiveIndex] = useState(0)
 
@@ -82,27 +83,11 @@ export function TripDetailView({ trip, isOwner, isLiked, similarSection }: Reado
               name: p.name,
               imageUrl: p.imageUrl ?? null,
               order: p.order,
+              memo: p.memo ?? null,
             }))}
             activeIndex={activeIndex}
             onActiveChange={setActiveIndex}
           />
-          {activePlace && (
-            <div className="px-4 pt-3 pb-1">
-              <div className="flex items-baseline gap-2">
-                <span className="text-sm font-semibold text-violet-500">
-                  {activeIndex + 1}
-                </span>
-                <h3 className="text-base font-semibold text-foreground">
-                  {activePlace.name}
-                </h3>
-              </div>
-              {activePlace.memo && (
-                <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">
-                  {activePlace.memo}
-                </p>
-              )}
-            </div>
-          )}
         </div>
       )}
 
@@ -166,10 +151,12 @@ export function TripDetailView({ trip, isOwner, isLiked, similarSection }: Reado
 
           <TripActionBar
             tripId={trip.id}
+            tripSlug={trip.slug}
             tripTitle={trip.title}
             initialLikeCount={trip.likeCount}
             initialLiked={isLiked}
             isOwner={isOwner}
+            isAuthenticated={isAuthenticated}
           />
         </div>
 

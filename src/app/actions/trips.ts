@@ -25,7 +25,7 @@ export type CreateTripInput = {
 }
 
 export type CreateTripResult =
-  | { ok: true; tripId: string }
+  | { ok: true; tripId: string; slug: string }
   | { ok: false; error: string }
 
 export async function createTrip(
@@ -85,7 +85,7 @@ export async function createTrip(
 
     revalidatePath("/")
 
-    return { ok: true, tripId: trip.id }
+    return { ok: true, tripId: trip.id, slug: trip.slug! }
   } catch (error) {
     console.error("[createTrip] DB error:", error)
     return { ok: false, error: "저장에 실패했어요. 잠시 후 다시 시도해주세요." }
@@ -112,7 +112,7 @@ export async function updateTrip(
 
   const trip = await prisma.trip.findUnique({
     where: { id: input.tripId },
-    select: { authorId: true },
+    select: { authorId: true, slug: true },
   })
   if (!trip) {
     return { ok: false, error: "코스를 찾을 수 없어요" }
@@ -166,7 +166,7 @@ export async function updateTrip(
     })
 
     revalidatePath("/")
-    revalidatePath(`/trips/${input.tripId}`)
+    revalidatePath(`/trips/${trip.slug ?? input.tripId}`)
 
     return { ok: true }
   } catch (error) {

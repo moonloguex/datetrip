@@ -6,6 +6,7 @@
 
 import Link from "next/link"
 import { useOptimistic, useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { DeleteTripDialog } from "@/components/trip/DeleteTripDialog"
@@ -13,19 +14,24 @@ import { toggleLike } from "@/app/actions/likes"
 
 type Props = {
   tripId: string
+  tripSlug: string | null
   tripTitle: string
   initialLikeCount: number
   initialLiked: boolean
   isOwner: boolean
+  isAuthenticated: boolean
 }
 
 export function TripActionBar({
   tripId,
+  tripSlug,
   tripTitle,
   initialLikeCount,
   initialLiked,
   isOwner,
+  isAuthenticated,
 }: Props) {
+  const router = useRouter()
   // 낙관적 상태: 클릭 즉시 반영, 서버 응답 후 실제값으로 동기화
   const [optimisticState, applyOptimistic] = useOptimistic(
     { liked: initialLiked, count: initialLikeCount },
@@ -40,6 +46,12 @@ export function TripActionBar({
   const [isPending, startTransition] = useTransition()
 
   function handleLike() {
+    if (!isAuthenticated) {
+      toast("로그인하고 마음에 든 코스를 저장하세요", {
+        action: { label: "로그인하기", onClick: () => router.push("/login") },
+      })
+      return
+    }
     startTransition(async () => {
       applyOptimistic("toggle")
       const result = await toggleLike(tripId)
@@ -52,7 +64,7 @@ export function TripActionBar({
   }
 
   async function handleShare() {
-    const url = `${window.location.origin}/trips/${tripId}`
+    const url = `${window.location.origin}/trips/${tripSlug ?? tripId}`
     try {
       await navigator.clipboard.writeText(url)
       toast.success("링크를 복사했어요")
@@ -89,7 +101,7 @@ export function TripActionBar({
             variant="outline"
             size="sm"
             nativeButton={false}
-            render={<Link href={`/trips/${tripId}/edit`} />}
+            render={<Link href={`/trips/${tripSlug ?? tripId}/edit`} />}
           >
             수정
           </Button>

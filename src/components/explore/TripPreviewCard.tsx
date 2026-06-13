@@ -1,7 +1,7 @@
 "use client"
 
 // 홈 지도에서 코스 선택 시 좌하단에 떠오르는 미리보기 카드.
-// "자세히 보기" 클릭 시 /trips/[id]로 이동.
+// "자세히 보기" 클릭 시 /trips/[slug]로 이동 (slug 없으면 id fallback).
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -9,6 +9,7 @@ import { getCourseColor } from "@/lib/courseColors"
 
 type Trip = {
   id: string
+  slug: string | null
   title: string
   description: string | null
   region: string | null
@@ -59,7 +60,7 @@ export function TripPreviewCard({ trip, onClose }: Readonly<Props>) {
       </div>
       <div className="border-t p-3">
         <Button
-          render={<Link href={`/trips/${trip.id}`} />}
+          render={<Link href={`/trips/${trip.slug ?? trip.id}`} />}
           nativeButton={false}
           size="sm"
           className="w-full"

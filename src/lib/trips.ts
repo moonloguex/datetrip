@@ -55,6 +55,23 @@ export async function getTripById(id: string) {
   })
 }
 
+// slug로 1차 조회. 구 cuid URL 호환을 위해 실패 시 id로 fallback.
+export async function getTripBySlug(slugOrId: string) {
+  const TRIP_INCLUDE = {
+    places: { orderBy: { order: "asc" as const } },
+    author: { select: { id: true, nickname: true, image: true } },
+  }
+  const bySlug = await prisma.trip.findUnique({
+    where: { slug: slugOrId },
+    include: TRIP_INCLUDE,
+  })
+  if (bySlug) return bySlug
+  return prisma.trip.findUnique({
+    where: { id: slugOrId },
+    include: TRIP_INCLUDE,
+  })
+}
+
 export type TripDetail = NonNullable<Awaited<ReturnType<typeof getTripById>>>
 
 // 현재 사용자가 좋아요 누른 trip ID 집합 (한 번에 fetching).
@@ -69,4 +86,65 @@ export async function getLikedTripIds(userId: string, tripIds: string[]) {
     select: { tripId: true },
   })
   return new Set(likes.map((l) => l.tripId))
+}
+
+// 마이페이지 카드용 경량 select. getPublicTrips의 places 전체 fetch를 피한다.
+const MY_TRIP_CARD_SELECT = {
+  id: true,
+  slug: true,
+  title: true,
+  region: true,
+  likeCount: true,
+  isPublic: true,
+  _count: { select: { places: true } },
+} as const
+
+// 클라이언트 직렬화 가능한 카드 데이터 (Date 제외).
+export type MyTripCardData = {
+  id: string
+  slug: string | null
+  title: string
+  region: string | null
+  likeCount: number
+  isPublic: boolean
+  placeCount: number
+}
+
+// 내가 만든 코스 (공개/비공개 전부), 최신순.
+export async function getMyTrips(userId: string): Promise<MyTripCardData[]> {
+  const trips = await prisma.trip.findMany({
+    where: { authorId: userId },
+    select: MY_TRIP_CARD_SELECT,
+    orderBy: { createdAt: "desc" },
+  })
+  return trips.map((t) => ({
+    id: t.id,
+    slug: t.slug,
+    title: t.title,
+    region: t.region,
+    likeCount: t.likeCount,
+    isPublic: t.isPublic,
+    placeCount: t._count.places,
+  }))
+}
+
+// 내가 좋아요한 코스. 타인이 비공개로 전환한 코스는 숨긴다.
+export async function getLikedTrips(userId: string): Promise<MyTripCardData[]> {
+  const likes = await prisma.like.findMany({
+    where: {
+      userId,
+      trip: { OR: [{ isPublic: true }, { authorId: userId }] },
+    },
+    orderBy: { createdAt: "desc" },
+    select: { trip: { select: MY_TRIP_CARD_SELECT } },
+  })
+  return likes.map(({ trip: t }) => ({
+    id: t.id,
+    slug: t.slug,
+    title: t.title,
+    region: t.region,
+    likeCount: t.likeCount,
+    isPublic: t.isPublic,
+    placeCount: t._count.places,
+  }))
 }

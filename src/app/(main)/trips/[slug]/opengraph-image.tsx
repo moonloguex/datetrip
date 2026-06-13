@@ -11,20 +11,21 @@ export const contentType = "image/png"
 export default async function OpengraphImage({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ slug: string }>
 }) {
-  const { id } = await params
+  const { slug } = await params
 
-  const trip = await prisma.trip.findUnique({
-    where: { id },
-    select: {
-      title: true,
-      region: true,
-      tags: true,
-      likeCount: true,
-      _count: { select: { places: true } },
-    },
-  })
+  const OG_SELECT = {
+    title: true,
+    region: true,
+    tags: true,
+    likeCount: true,
+    _count: { select: { places: true } },
+  } as const
+
+  const trip =
+    (await prisma.trip.findUnique({ where: { slug }, select: OG_SELECT })) ??
+    (await prisma.trip.findUnique({ where: { id: slug }, select: OG_SELECT }))
 
   if (!trip) {
     return new Response("not found", { status: 404 })

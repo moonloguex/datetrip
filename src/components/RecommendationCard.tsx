@@ -22,7 +22,7 @@ interface Props {
 export function RecommendationCard({ trip, reason }: Props) {
   return (
     <Link
-      href={`/trips/${trip.id}`}
+      href={`/trips/${trip.slug ?? trip.id}`}
       className="block w-[80vw] max-w-[320px] flex-shrink-0 snap-start"
     >
       <article className="h-full rounded-2xl border bg-card p-4 hover:border-foreground/30 transition-colors">

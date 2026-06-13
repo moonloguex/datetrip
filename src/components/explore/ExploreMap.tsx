@@ -108,16 +108,16 @@ export function ExploreMap({ trips, mineOnly, initialTripId, isAuthenticated, ch
           <button
             type="button"
             onClick={deselectTrip}
-            className="rounded-full border bg-background/95 px-4 py-1.5 text-sm font-medium shadow-md backdrop-blur-sm hover:bg-accent"
+            className="flex items-center rounded-full border bg-background/95 px-4 min-h-11 sm:min-h-0 sm:py-1.5 text-sm font-medium shadow-md backdrop-blur-sm hover:bg-accent"
           >
             선택 해제
           </button>
         </div>
       )}
 
-      {/* 좌하단: 선택된 코스 미리보기 카드 */}
+      {/* 하단: 선택된 코스 미리보기 카드 (모바일 풀폭 시트, 데스크톱 좌하단 플로팅) */}
       {selectedTrip && (
-        <div className="absolute bottom-8 left-4 sm:left-12 z-10">
+        <div className="absolute z-10 inset-x-0 bottom-0 sm:inset-x-auto sm:bottom-8 sm:left-12">
           <TripPreviewCard
             trip={selectedTrip}
             onClose={deselectTrip}

@@ -162,9 +162,9 @@ export function TripBuilder(props: Props) {
       : `/trips/${props.tripSlug ?? props.tripId}`
 
   return (
-    <div className="grid h-[calc(100vh-4rem)] grid-cols-[minmax(380px,2fr)_3fr]">
+    <div className="flex flex-col lg:grid lg:h-[calc(100vh-4rem)] lg:grid-cols-[minmax(380px,2fr)_3fr]">
       {/* 좌측 ─ 폼 */}
-      <div className="flex flex-col gap-6 overflow-y-auto border-r p-6">
+      <div className="flex flex-col gap-6 p-4 sm:p-6 border-b lg:border-b-0 lg:border-r lg:overflow-y-auto">
         <div className="flex items-center justify-between">
           <Link
             href={backLink}
@@ -177,6 +177,7 @@ export function TripBuilder(props: Props) {
             onClick={handleSave}
             disabled={!canSave || isSaving}
             size="sm"
+            className="min-h-11 lg:min-h-0"
           >
             {isSaving ? "저장 중..." : "저장"}
           </Button>
@@ -309,7 +310,7 @@ export function TripBuilder(props: Props) {
       </div>
 
       {/* 우측 ─ 지도 미리보기 */}
-      <div className="relative">
+      <div className="relative h-[50vh] lg:h-auto">
         <DraftCourseMap places={places} />
       </div>
     </div>

@@ -9,6 +9,7 @@ export type CarouselPlace = {
   name: string
   imageUrl: string | null
   order: number
+  memo?: string | null
 }
 
 type Props = {
@@ -74,6 +75,22 @@ export function CourseImageCarousel({ places, activeIndex, onActiveChange }: Rea
               <div className="absolute top-3 left-3 bg-black/55 text-white text-xs font-medium px-2.5 py-1 rounded-full backdrop-blur-sm">
                 {i + 1} / {places.length}
               </div>
+            </div>
+            {/* 장소 정보 */}
+            <div className="pt-2.5 px-0.5">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-xs font-semibold text-violet-500 shrink-0">
+                  {place.order + 1}
+                </span>
+                <span className="text-sm font-medium leading-snug truncate">
+                  {place.name}
+                </span>
+              </div>
+              {place.memo && (
+                <p className="mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                  {place.memo}
+                </p>
+              )}
             </div>
           </div>
         ))}

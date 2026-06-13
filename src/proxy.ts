@@ -1,7 +1,7 @@
 // Next.js 16에서 middleware.ts → proxy.ts.
 // 역할:
 //   1. Rate limiting: /api/* 라우트에 IP당 분당 60회 제한 (Upstash, 환경변수 없으면 pass)
-//   2. 인증 보호: 인증 필요 경로(/trips/new, /my, /trips/[id]/edit)에 대해 로그인 필수 강제.
+//   2. 인증 보호: 인증 필요 경로(/trips/new, /my, /trips/[slug]/edit)에 대해 로그인 필수 강제.
 //      authConfig.callbacks.authorized 가 이를 처리함.
 //
 // 닉네임 체크는 미들웨어에서 할 수 없음 (Auth.js v5는 미들웨어에서 JWT 쿠키를 재발급하지 않아

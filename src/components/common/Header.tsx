@@ -13,13 +13,13 @@ export async function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Logo />
 
         <nav className="flex items-center gap-3">
           {session?.user ? (
             <>
-              <Button render={<Link href="/trips/new" />} size="sm" nativeButton={false}>
+              <Button render={<Link href="/trips/new" />} size="sm" nativeButton={false} className="min-h-11 sm:min-h-0">
                 + 새 코스
               </Button>
               <UserMenu
@@ -32,7 +32,7 @@ export async function Header() {
               />
             </>
           ) : (
-            <Button render={<Link href="/login" />} size="sm" variant="outline" nativeButton={false}>
+            <Button render={<Link href="/login" />} size="sm" variant="outline" nativeButton={false} className="min-h-11 sm:min-h-0">
               로그인
             </Button>
           )}

@@ -27,7 +27,7 @@ export default async function MePage() {
   }
 
   return (
-    <main className="mx-auto max-w-screen-sm space-y-10 px-4 py-8">
+    <main className="mx-auto max-w-screen-sm space-y-8 sm:space-y-10 px-4 py-6 sm:py-8">
       <h1 className="text-2xl font-bold">마이페이지</h1>
 
       <section className="space-y-3">

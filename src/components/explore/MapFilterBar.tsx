@@ -37,7 +37,7 @@ export function MapFilterBar() {
         type="button"
         onClick={toggleMineOnly}
         disabled={isPending}
-        className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+        className={`rounded-full border px-4 min-h-11 sm:min-h-0 sm:py-1.5 text-sm font-medium transition-colors ${
           mineOnly
             ? "border-foreground bg-foreground text-background"
             : "border-transparent bg-transparent hover:bg-accent"
@@ -49,7 +49,7 @@ export function MapFilterBar() {
       <button
         type="button"
         disabled
-        className="rounded-full border border-transparent bg-transparent px-4 py-1.5 text-sm text-muted-foreground"
+        className="rounded-full border border-transparent bg-transparent px-4 min-h-11 sm:min-h-0 sm:py-1.5 text-sm text-muted-foreground"
         title="다음 단계에서 동작 추가 예정"
       >
         카테고리 ▾

@@ -29,7 +29,9 @@ export function TripPreviewCard({ trip, onClose }: Readonly<Props>) {
   const color = getCourseColor(trip.id)
 
   return (
-    <div className="w-72 sm:w-80 rounded-xl border bg-background/95 shadow-lg backdrop-blur-sm">
+    <div className="w-full rounded-t-2xl border-t sm:w-80 sm:rounded-xl sm:border bg-background/95 shadow-lg backdrop-blur-sm pb-[env(safe-area-inset-bottom)] sm:pb-0">
+      {/* 그랩 핸들 (모바일 전용) */}
+      <div className="sm:hidden mx-auto mt-3 mb-1 h-1 w-10 rounded-full bg-muted" aria-hidden />
       <div className="flex items-start gap-3 p-4">
         <div
           className="mt-1.5 h-3 w-3 shrink-0 rounded-sm"
@@ -52,7 +54,7 @@ export function TripPreviewCard({ trip, onClose }: Readonly<Props>) {
         <button
           type="button"
           onClick={onClose}
-          className="shrink-0 rounded p-1 text-muted-foreground hover:bg-accent hover:text-foreground"
+          className="shrink-0 flex items-center justify-center -m-1 min-h-11 min-w-11 sm:min-h-0 sm:min-w-0 rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
           aria-label="닫기"
         >
           ✕
@@ -63,7 +65,7 @@ export function TripPreviewCard({ trip, onClose }: Readonly<Props>) {
           render={<Link href={`/trips/${trip.slug ?? trip.id}`} />}
           nativeButton={false}
           size="sm"
-          className="w-full"
+          className="w-full min-h-11 sm:min-h-0"
         >
           자세히 보기
         </Button>

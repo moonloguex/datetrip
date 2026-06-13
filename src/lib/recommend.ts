@@ -62,6 +62,16 @@ export async function invalidateRecommendationCache(userId: string) {
   await prisma.recommendation.delete({ where: { userId } }).catch(() => {})
 }
 
+/** 지정된 태그 중 하나라도 preferences에 포함된 사용자들의 추천 캐시를 삭제 */
+export async function invalidateRecommendationCacheForTags(tags: string[]) {
+  if (tags.length === 0) return
+  await prisma.recommendation
+    .deleteMany({
+      where: { user: { preferences: { hasSome: tags } } },
+    })
+    .catch(() => {})
+}
+
 // ───── 캐시 ─────
 
 async function getCachedRecommendation(

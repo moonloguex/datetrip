@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { generateUniqueSlug } from "@/lib/slug"
+import { invalidateRecommendationCacheForTags } from "@/lib/recommend"
 
 export type CreateTripInput = {
   title: string
@@ -84,6 +85,7 @@ export async function createTrip(
     })
 
     revalidatePath("/")
+    await invalidateRecommendationCacheForTags(input.tags)
 
     return { ok: true, tripId: trip.id, slug: trip.slug! }
   } catch (error) {

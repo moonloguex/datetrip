@@ -9,6 +9,7 @@
 import { revalidatePath } from "next/cache"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
+import { invalidateRecommendationCache } from "@/lib/recommend"
 
 export type ToggleLikeResult =
   | { ok: true; liked: boolean; likeCount: number }
@@ -52,6 +53,7 @@ export async function toggleLike(tripId: string): Promise<ToggleLikeResult> {
 
     revalidatePath("/")
     revalidatePath(`/trips/${result.slug ?? tripId}`)
+    await invalidateRecommendationCache(userId)
 
     return { ok: true, liked: result.liked, likeCount: result.likeCount }
   } catch (error) {

@@ -64,7 +64,7 @@ export function CourseImageCarousel({ places, activeIndex, onActiveChange }: Rea
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-violet-100 to-rose-100">
                   <div className="text-5xl font-bold text-gray-300 mb-2">
-                    {place.order + 1}
+                    {place.order}
                   </div>
                   <div className="text-base font-medium text-gray-500 px-6 text-center leading-snug">
                     {place.name}
@@ -80,7 +80,7 @@ export function CourseImageCarousel({ places, activeIndex, onActiveChange }: Rea
             <div className="pt-2.5 px-0.5">
               <div className="flex items-baseline gap-1.5">
                 <span className="text-xs font-semibold text-violet-500 shrink-0">
-                  {place.order + 1}
+                  {place.order}
                 </span>
                 <span className="text-sm font-medium leading-snug truncate">
                   {place.name}

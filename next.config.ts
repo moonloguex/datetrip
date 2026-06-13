@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.pstatic.net",
       },
+      {
+        // 시드 코스 랜드마크 이미지 출처 (Wikimedia Commons). 공개 라이선스 + 안정적 CDN.
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
     ],
   },
 }

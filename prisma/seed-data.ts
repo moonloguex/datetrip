@@ -93,10 +93,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "강남",
     tags: ["미식", "디저트", "트렌디"],
     places: [
-      { name: "도산공원", region: "강남구 신사동", memo: "산책 시작점" },
-      { name: "누데이크 도산", region: "강남구 신사동", memo: "디저트의 정점" },
-      { name: "런던베이글뮤지엄 도산", region: "강남구 신사동", memo: "런던식 베이글" },
-      { name: "젠틀몬스터 하우스 도산", region: "강남구 신사동", memo: "플래그십 스토어" },
+      { name: "도산공원", region: "강남구 신사동", memo: "산책 시작점", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Korea-Seoul-Dosan_Park-06.jpg/960px-Korea-Seoul-Dosan_Park-06.jpg" },
+      { name: "누데이크 도산", region: "강남구 신사동", memo: "디저트의 정점", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Korea-Seoul-Dosan_Park-06.jpg/960px-Korea-Seoul-Dosan_Park-06.jpg" },
+      { name: "런던베이글뮤지엄 도산", region: "강남구 신사동", memo: "런던식 베이글", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/%EB%9F%B0%EB%8D%98%EB%B2%A0%EC%9D%B4%EA%B8%80%EB%AE%A4%EC%A7%80%EC%97%84_%EC%9E%A0%EC%8B%A4%EC%A0%90_%EA%B0%88%EB%A6%AD_%EB%B2%A0%EC%9D%B4%EA%B8%80.jpg/960px-%EB%9F%B0%EB%8D%98%EB%B2%A0%EC%9D%B4%EA%B8%80%EB%AE%A4%EC%A7%80%EC%97%84_%EC%9E%A0%EC%8B%A4%EC%A0%90_%EA%B0%88%EB%A6%AD_%EB%B2%A0%EC%9D%B4%EA%B8%80.jpg" },
+      { name: "젠틀몬스터 하우스 도산", region: "강남구 신사동", memo: "플래그십 스토어", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Gentlemonster_LA.jpg/960px-Gentlemonster_LA.jpg" },
     ],
   },
   {
@@ -106,10 +106,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "강남",
     tags: ["데이트", "도심", "산책"],
     places: [
-      { name: "코엑스", region: "강남구 삼성동", memo: "쇼핑·식사" },
-      { name: "별마당 도서관", region: "강남구 삼성동", memo: "랜드마크 도서관" },
-      { name: "봉은사", region: "강남구 삼성동", memo: "도심 속 사찰" },
-      { name: "선릉공원", region: "강남구 삼성동", memo: "조용한 산책로" },
+      { name: "코엑스", region: "강남구 삼성동", memo: "쇼핑·식사", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Seoul_COEX_Mall.jpg/960px-Seoul_COEX_Mall.jpg" },
+      { name: "별마당 도서관", region: "강남구 삼성동", memo: "랜드마크 도서관", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Starfield_Library_COEX_20240218.jpg/960px-Starfield_Library_COEX_20240218.jpg" },
+      { name: "봉은사", region: "강남구 삼성동", memo: "도심 속 사찰", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Bongeunsa_Seoul_8.jpg/960px-Bongeunsa_Seoul_8.jpg" },
+      { name: "선릉공원", region: "강남구 삼성동", memo: "조용한 산책로", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Seolleung_and_Jeongneung_Royal_Tombs_2.jpg/960px-Seolleung_and_Jeongneung_Royal_Tombs_2.jpg" },
     ],
   },
   {
@@ -119,10 +119,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "강남",
     tags: ["디저트", "카페", "트렌디"],
     places: [
-      { name: "가로수길", region: "강남구 신사동", memo: "쇼핑 거리" },
-      { name: "노티드 압구정", region: "강남구 압구정동", memo: "도넛과 케이크" },
-      { name: "도산공원", region: "강남구 신사동", memo: "디저트 후 산책" },
-      { name: "카페 레이어드 신사", region: "강남구 신사동", memo: "스콘이 유명" },
+      { name: "가로수길", region: "강남구 신사동", memo: "쇼핑 거리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Garosu-gil_at_night.jpg/960px-Garosu-gil_at_night.jpg" },
+      { name: "노티드 압구정", region: "강남구 압구정동", memo: "도넛과 케이크", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Garosu-gil_at_night.jpg/960px-Garosu-gil_at_night.jpg" },
+      { name: "도산공원", region: "강남구 신사동", memo: "디저트 후 산책", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Korea-Seoul-Dosan_Park-06.jpg/960px-Korea-Seoul-Dosan_Park-06.jpg" },
+      { name: "카페 레이어드 신사", region: "강남구 신사동", memo: "스콘이 유명", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Garosu-gil_at_night.jpg/960px-Garosu-gil_at_night.jpg" },
     ],
   },
 
@@ -134,10 +134,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "홍대",
     tags: ["활기찬", "카페", "데이트"],
     places: [
-      { name: "홍대 걷고싶은거리", region: "마포구 서교동", memo: "거리 공연 명소" },
-      { name: "산울림소극장", region: "마포구 서교동", memo: "전통 있는 소극장" },
-      { name: "카페 노티드 홍대", region: "마포구 서교동", memo: "도넛 명가" },
-      { name: "홍대입구역", region: "마포구 서교동", memo: "9번 출구 약속 장소" },
+      { name: "홍대 걷고싶은거리", region: "마포구 서교동", memo: "거리 공연 명소", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Street_hongdae_Seoul.jpg/960px-Street_hongdae_Seoul.jpg" },
+      { name: "산울림소극장", region: "마포구 서교동", memo: "전통 있는 소극장", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Street_hongdae_Seoul.jpg/960px-Street_hongdae_Seoul.jpg" },
+      { name: "카페 노티드 홍대", region: "마포구 서교동", memo: "도넛 명가", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Street_hongdae_Seoul.jpg/960px-Street_hongdae_Seoul.jpg" },
+      { name: "홍대입구역", region: "마포구 서교동", memo: "9번 출구 약속 장소", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/%ED%99%8D%EB%8C%80%EC%9E%85%EA%B5%AC%EC%97%AD_6%EB%B2%88_%EC%B6%9C%EC%9E%85%EA%B5%AC_-_Hongik_University_Station_Exit_6.jpg/960px-%ED%99%8D%EB%8C%80%EC%9E%85%EA%B5%AC%EC%97%AD_6%EB%B2%88_%EC%B6%9C%EC%9E%85%EA%B5%AC_-_Hongik_University_Station_Exit_6.jpg" },
     ],
   },
   {
@@ -147,10 +147,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "합정",
     tags: ["조용한", "책", "산책"],
     places: [
-      { name: "메세나폴리스", region: "마포구 합정동", memo: "쇼핑·식사" },
-      { name: "더북소사이어티", region: "마포구 합정동", memo: "독립서점" },
-      { name: "절두산순교성지", region: "마포구 합정동", memo: "한강뷰 산책로" },
-      { name: "양화진외국인선교사묘원", region: "마포구 합정동", memo: "고즈넉한 공간" },
+      { name: "메세나폴리스", region: "마포구 합정동", memo: "쇼핑·식사", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Seoul_Cityscape_From_the_Sky_Park_%286907573433%29.jpg/960px-Seoul_Cityscape_From_the_Sky_Park_%286907573433%29.jpg" },
+      { name: "더북소사이어티", region: "마포구 합정동", memo: "독립서점", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Jeoldusan_Martyr%27s_Grounds%2C_Seoul%2C_Korea_%2814521171947%29.jpg/960px-Jeoldusan_Martyr%27s_Grounds%2C_Seoul%2C_Korea_%2814521171947%29.jpg" },
+      { name: "절두산순교성지", region: "마포구 합정동", memo: "한강뷰 산책로", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Jeoldusan_Martyr%27s_Grounds%2C_Seoul%2C_Korea_%2814521171947%29.jpg/960px-Jeoldusan_Martyr%27s_Grounds%2C_Seoul%2C_Korea_%2814521171947%29.jpg" },
+      { name: "양화진외국인선교사묘원", region: "마포구 합정동", memo: "고즈넉한 공간", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/YanghwajinHulbert.JPG/960px-YanghwajinHulbert.JPG" },
     ],
   },
 
@@ -162,10 +162,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "한남",
     tags: ["예술", "트렌디", "데이트"],
     places: [
-      { name: "리움미술관", region: "용산구 한남동", memo: "현대 미술의 정점" },
-      { name: "D MUSEUM", region: "용산구 한남동", memo: "기획전 명가" },
-      { name: "사운즈 한남", region: "용산구 한남동", memo: "복합 문화 공간" },
-      { name: "노티드 한남", region: "", memo: "도넛 한남점" },
+      { name: "리움미술관", region: "용산구 한남동", memo: "현대 미술의 정점", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Leeum%2C_Samsung_Museum_of_Art.jpg/960px-Leeum%2C_Samsung_Museum_of_Art.jpg" },
+      { name: "D MUSEUM", region: "용산구 한남동", memo: "기획전 명가", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Leeum%2C_Samsung_Museum_of_Art.jpg/960px-Leeum%2C_Samsung_Museum_of_Art.jpg" },
+      { name: "사운즈 한남", region: "용산구 한남동", memo: "복합 문화 공간", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Leeum%2C_Samsung_Museum_of_Art.jpg/960px-Leeum%2C_Samsung_Museum_of_Art.jpg" },
+      { name: "노티드 한남", region: "", memo: "도넛 한남점", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Leeum%2C_Samsung_Museum_of_Art.jpg/960px-Leeum%2C_Samsung_Museum_of_Art.jpg" },
     ],
   },
   {
@@ -175,10 +175,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "이태원",
     tags: ["미식", "이국적", "활기찬"],
     places: [
-      { name: "경리단길", region: "용산구 이태원동", memo: "다국적 음식 거리" },
-      { name: "해방촌", region: "용산구 용산동2가", memo: "골목 카페" },
-      { name: "이태원 우사단로", region: "용산구 이태원동", memo: "이슬람 거리" },
-      { name: "남산공원", region: "용산구 한남동", memo: "야경 명소" },
+      { name: "경리단길", region: "용산구 이태원동", memo: "다국적 음식 거리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Itaewon_Gyeongnidan-gil.JPG/960px-Itaewon_Gyeongnidan-gil.JPG" },
+      { name: "해방촌", region: "용산구 용산동2가", memo: "골목 카페", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Seoul_Yongsan_Haebangchon_20250206.jpg/960px-Seoul_Yongsan_Haebangchon_20250206.jpg" },
+      { name: "이태원 우사단로", region: "용산구 이태원동", memo: "이슬람 거리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Itaewon_Gyeongnidan-gil.JPG/960px-Itaewon_Gyeongnidan-gil.JPG" },
+      { name: "남산공원", region: "용산구 한남동", memo: "야경 명소", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/South_View_of_Seoul_from_Namsan_Park%2C_Korea.jpg/960px-South_View_of_Seoul_from_Namsan_Park%2C_Korea.jpg" },
     ],
   },
 
@@ -190,10 +190,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "잠실",
     tags: ["산책", "데이트", "자연"],
     places: [
-      { name: "석촌호수", region: "송파구 잠실동", memo: "한 바퀴 약 2.5km" },
-      { name: "롯데월드 어드벤처", region: "송파구 잠실동", memo: "테마파크" },
-      { name: "송리단길", region: "송파구 송파동", memo: "골목 카페 거리" },
-      { name: "잠실역", region: "송파구 잠실동", memo: "교통 허브" },
+      { name: "석촌호수", region: "송파구 잠실동", memo: "한 바퀴 약 2.5km", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Seokchon_Lake_in_Seoul.jpg/960px-Seokchon_Lake_in_Seoul.jpg" },
+      { name: "롯데월드 어드벤처", region: "송파구 잠실동", memo: "테마파크", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Lotte_World_day_view_5.jpg/960px-Lotte_World_day_view_5.jpg" },
+      { name: "송리단길", region: "송파구 송파동", memo: "골목 카페 거리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Seokchon_Lake_in_Seoul.jpg/960px-Seokchon_Lake_in_Seoul.jpg" },
+      { name: "잠실역", region: "송파구 잠실동", memo: "교통 허브", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Jamsil_Station_20241102_001.jpg/960px-Jamsil_Station_20241102_001.jpg" },
     ],
   },
   {
@@ -203,10 +203,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "잠실",
     tags: ["야경", "전망", "데이트"],
     places: [
-      { name: "롯데월드타워 서울스카이", region: "송파구 신천동", memo: "555m 전망대" },
-      { name: "롯데월드몰", region: "송파구 신천동", memo: "식사와 쇼핑" },
-      { name: "석촌호수", region: "송파구 잠실동", memo: "야경 산책" },
-      { name: "잠실종합운동장", region: "송파구 잠실동", memo: "공연·경기" },
+      { name: "롯데월드타워 서울스카이", region: "송파구 신천동", memo: "555m 전망대", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Purple_sky_of_Seoul_and_Lotte_World_Tower.jpg/960px-Purple_sky_of_Seoul_and_Lotte_World_Tower.jpg" },
+      { name: "롯데월드몰", region: "송파구 신천동", memo: "식사와 쇼핑", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Lotte_World_Mall_in_Seoul.jpg/960px-Lotte_World_Mall_in_Seoul.jpg" },
+      { name: "석촌호수", region: "송파구 잠실동", memo: "야경 산책", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Seokchon_Lake_in_Seoul.jpg/960px-Seokchon_Lake_in_Seoul.jpg" },
+      { name: "잠실종합운동장", region: "송파구 잠실동", memo: "공연·경기", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Seoul_Sports_Complex.jpg/960px-Seoul_Sports_Complex.jpg" },
     ],
   },
 
@@ -218,10 +218,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "북촌",
     tags: ["전통", "산책", "조용한"],
     places: [
-      { name: "북촌한옥마을", region: "종로구 가회동", memo: "한옥 골목 사진 명소" },
-      { name: "가회동성당", region: "종로구 가회동", memo: "한옥 양식 성당" },
-      { name: "안국역", region: "종로구 안국동", memo: "북촌·인사동 접근점" },
-      { name: "인사동", region: "종로구 인사동", memo: "전통 공예 거리" },
+      { name: "북촌한옥마을", region: "종로구 가회동", memo: "한옥 골목 사진 명소", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Bukchon-ro_11-gil_street_with_hanok_houses_at_blue_hour_in_Bukchon_Hanok_Village_Seoul.jpg/960px-Bukchon-ro_11-gil_street_with_hanok_houses_at_blue_hour_in_Bukchon_Hanok_Village_Seoul.jpg" },
+      { name: "가회동성당", region: "종로구 가회동", memo: "한옥 양식 성당", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Korea_Gaheedong_Catholic_Church_20140424_07_%2814062441743%29.jpg/960px-Korea_Gaheedong_Catholic_Church_20140424_07_%2814062441743%29.jpg" },
+      { name: "안국역", region: "종로구 안국동", memo: "북촌·인사동 접근점", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Anguk_Station_20230402_001.jpg/960px-Anguk_Station_20230402_001.jpg" },
+      { name: "인사동", region: "종로구 인사동", memo: "전통 공예 거리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Insa-dong_%EC%9D%B8%EC%82%AC%EB%8F%99_October_1_2020_12.jpg/960px-Insa-dong_%EC%9D%B8%EC%82%AC%EB%8F%99_October_1_2020_12.jpg" },
     ],
   },
   {
@@ -231,10 +231,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "서촌",
     tags: ["예술", "전통", "산책"],
     places: [
-      { name: "통의동 보안여관", region: "종로구 통의동", memo: "복합 문화 공간" },
-      { name: "대림미술관", region: "종로구 통의동", memo: "사진·디자인 전시" },
-      { name: "통인시장", region: "종로구 통인동", memo: "도시락 카페로 유명" },
-      { name: "윤동주문학관", region: "종로구 청운동", memo: "시인의 자취" },
+      { name: "통의동 보안여관", region: "종로구 통의동", memo: "복합 문화 공간", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Daelim_Museum.jpg/960px-Daelim_Museum.jpg" },
+      { name: "대림미술관", region: "종로구 통의동", memo: "사진·디자인 전시", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Daelim_Museum.jpg/960px-Daelim_Museum.jpg" },
+      { name: "통인시장", region: "종로구 통인동", memo: "도시락 카페로 유명", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Korea_Tongin_Market_01_%2812920987714%29.jpg/960px-Korea_Tongin_Market_01_%2812920987714%29.jpg" },
+      { name: "윤동주문학관", region: "종로구 청운동", memo: "시인의 자취", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Yoon_Dongju_11_%287869277926%29.jpg/960px-Yoon_Dongju_11_%287869277926%29.jpg" },
     ],
   },
 
@@ -246,11 +246,11 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "을지로",
     tags: ["야경", "활기찬", "미식"],
     places: [
-      { name: "을지로3가역", region: "중구 을지로3가", memo: "힙지로 탐방의 출발점" },
-      { name: "을지면옥", region: "중구 주교동", memo: "노포 평양냉면의 정석" },
-      { name: "호프", region: "중구 을지로3가", memo: "골목 안 숨은 맥주집 분위기" },
-      { name: "을지로 노가리골목", region: "중구 을지로3가", memo: "저녁이면 활기찬 노상" },
-      { name: "청계천", region: "중구 장교동", memo: "야경 산책으로 마무리" },
+      { name: "을지로3가역", region: "중구 을지로3가", memo: "힙지로 탐방의 출발점", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Euljiro_3-ga_Station_20240929_001.jpg/960px-Euljiro_3-ga_Station_20240929_001.jpg" },
+      { name: "을지면옥", region: "중구 주교동", memo: "노포 평양냉면의 정석", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Euljiro_3-ga_Station_20240929_001.jpg/960px-Euljiro_3-ga_Station_20240929_001.jpg" },
+      { name: "호프", region: "중구 을지로3가", memo: "골목 안 숨은 맥주집 분위기", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Euljiro_3-ga_Station_20240929_001.jpg/960px-Euljiro_3-ga_Station_20240929_001.jpg" },
+      { name: "을지로 노가리골목", region: "중구 을지로3가", memo: "저녁이면 활기찬 노상", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Euljiro_3-ga_Station_20240929_001.jpg/960px-Euljiro_3-ga_Station_20240929_001.jpg" },
+      { name: "청계천", region: "중구 장교동", memo: "야경 산책으로 마무리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Cheonggyecheon_Stream_in_sunset.jpg/960px-Cheonggyecheon_Stream_in_sunset.jpg" },
     ],
   },
   {
@@ -260,10 +260,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "익선동",
     tags: ["전통", "카페", "데이트"],
     places: [
-      { name: "익선동 한옥거리", region: "종로구 익선동", memo: "한옥 개조 카페 골목" },
-      { name: "낙원악기상가", region: "종로구 낙원동", memo: "옥상정원과 예술영화관" },
-      { name: "창덕궁", region: "종로구 와룡동", memo: "후원이 아름다운 궁궐" },
-      { name: "익선동 거리", region: "종로구 익선동", memo: "한옥 사이 소품숍 골목" },
+      { name: "익선동 한옥거리", region: "종로구 익선동", memo: "한옥 개조 카페 골목", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Ikseon-dong_%EC%9D%B5%EC%84%A0%EB%8F%99_October_1_2020_5.jpg/960px-Ikseon-dong_%EC%9D%B5%EC%84%A0%EB%8F%99_October_1_2020_5.jpg" },
+      { name: "낙원악기상가", region: "종로구 낙원동", memo: "옥상정원과 예술영화관", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Ikseon-dong_%EC%9D%B5%EC%84%A0%EB%8F%99_October_1_2020_5.jpg/960px-Ikseon-dong_%EC%9D%B5%EC%84%A0%EB%8F%99_October_1_2020_5.jpg" },
+      { name: "창덕궁", region: "종로구 와룡동", memo: "후원이 아름다운 궁궐", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Exterior_front_view_of_the_pavilion_Samsamwa_with_blue_sky_at_Changdeokgung_Palace_in_Seoul.jpg/960px-Exterior_front_view_of_the_pavilion_Samsamwa_with_blue_sky_at_Changdeokgung_Palace_in_Seoul.jpg" },
+      { name: "익선동 거리", region: "종로구 익선동", memo: "한옥 사이 소품숍 골목", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Ikseon-dong_%EC%9D%B5%EC%84%A0%EB%8F%99_October_1_2020_3.jpg/960px-Ikseon-dong_%EC%9D%B5%EC%84%A0%EB%8F%99_October_1_2020_3.jpg" },
     ],
   },
   {
@@ -273,11 +273,11 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "종로",
     tags: ["미식", "전통", "활기찬"],
     places: [
-      { name: "광장시장", region: "종로구 예지동", memo: "먹거리 투어의 중심" },
-      { name: "광장시장 마약김밥", region: "종로구 예지동", memo: "줄 서서 먹는 명물" },
-      { name: "부촌육회", region: "종로구 예지동", memo: "신선한 생육회" },
-      { name: "방산시장", region: "중구 을지로5가", memo: "식후 구경거리 골목" },
-      { name: "청계천", region: "종로구 장사동", memo: "산책으로 소화" },
+      { name: "광장시장", region: "종로구 예지동", memo: "먹거리 투어의 중심", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Gwangjang_Market%2C_Seoul_01.jpg/960px-Gwangjang_Market%2C_Seoul_01.jpg" },
+      { name: "광장시장 마약김밥", region: "종로구 예지동", memo: "줄 서서 먹는 명물", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Gwangjang_Market%2C_Seoul_02.jpg/960px-Gwangjang_Market%2C_Seoul_02.jpg" },
+      { name: "부촌육회", region: "종로구 예지동", memo: "신선한 생육회", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Yukhoe_in_Gwangjang_Market%2C_Seoul.jpg/960px-Yukhoe_in_Gwangjang_Market%2C_Seoul.jpg" },
+      { name: "방산시장", region: "중구 을지로5가", memo: "식후 구경거리 골목", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/%EB%B0%A9%EC%82%B0%EC%8B%9C%EC%9E%A5.jpg/960px-%EB%B0%A9%EC%82%B0%EC%8B%9C%EC%9E%A5.jpg" },
+      { name: "청계천", region: "종로구 장사동", memo: "산책으로 소화", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Cheonggyecheon_Stream_in_sunset.jpg/960px-Cheonggyecheon_Stream_in_sunset.jpg" },
     ],
   },
 
@@ -289,10 +289,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "망원",
     tags: ["미식", "산책", "활기찬"],
     places: [
-      { name: "망원시장", region: "마포구 망원동", memo: "고로케·닭강정으로 유명" },
-      { name: "포비 망원", region: "마포구 망원동", memo: "베이글과 커피" },
-      { name: "망원한강공원", region: "마포구 망원동", memo: "노을 명소 한강뷰" },
-      { name: "카페 망리단길", region: "마포구 망원동", memo: "망리단길 감성 카페거리" },
+      { name: "망원시장", region: "마포구 망원동", memo: "고로케·닭강정으로 유명", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mercado_Mangwon_en_Se%C3%BAl.jpg/960px-Mercado_Mangwon_en_Se%C3%BAl.jpg" },
+      { name: "포비 망원", region: "마포구 망원동", memo: "베이글과 커피", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mercado_Mangwon_en_Se%C3%BAl.jpg/960px-Mercado_Mangwon_en_Se%C3%BAl.jpg" },
+      { name: "망원한강공원", region: "마포구 망원동", memo: "노을 명소 한강뷰", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Mangwon_Hangang_Park.png/960px-Mangwon_Hangang_Park.png" },
+      { name: "카페 망리단길", region: "마포구 망원동", memo: "망리단길 감성 카페거리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Mercado_Mangwon_en_Se%C3%BAl.jpg/960px-Mercado_Mangwon_en_Se%C3%BAl.jpg" },
     ],
   },
   {
@@ -302,10 +302,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "상수",
     tags: ["활기찬", "예술", "카페"],
     places: [
-      { name: "상수역", region: "마포구 상수동", memo: "골목 탐방의 시작" },
-      { name: "제비다방", region: "마포구 상수동", memo: "인디 공연이 열리는 명소" },
-      { name: "클럽 빵", region: "마포구 서교동", memo: "역사 깊은 인디 라이브 클럽" },
-      { name: "절두산순교성지", region: "마포구 합정동", memo: "한강뷰로 마무리" },
+      { name: "상수역", region: "마포구 상수동", memo: "골목 탐방의 시작", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Seoul-metro-623-Sangsu-station-entrance-3-20191022-075652.jpg/960px-Seoul-metro-623-Sangsu-station-entrance-3-20191022-075652.jpg" },
+      { name: "제비다방", region: "마포구 상수동", memo: "인디 공연이 열리는 명소", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Seoul-metro-623-Sangsu-station-entrance-3-20191022-075652.jpg/960px-Seoul-metro-623-Sangsu-station-entrance-3-20191022-075652.jpg" },
+      { name: "클럽 빵", region: "마포구 서교동", memo: "역사 깊은 인디 라이브 클럽", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Street_hongdae_Seoul.jpg/960px-Street_hongdae_Seoul.jpg" },
+      { name: "절두산순교성지", region: "마포구 합정동", memo: "한강뷰로 마무리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Jeoldusan_Martyr%27s_Grounds%2C_Seoul%2C_Korea_%2814521171947%29.jpg/960px-Jeoldusan_Martyr%27s_Grounds%2C_Seoul%2C_Korea_%2814521171947%29.jpg" },
     ],
   },
 
@@ -317,10 +317,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "청담",
     tags: ["트렌디", "예술", "디저트"],
     places: [
-      { name: "청담동 명품거리", region: "강남구 청담동", memo: "플래그십 스토어 거리" },
-      { name: "House of Dior 청담", region: "강남구 청담동", memo: "건축이 멋진 플래그십" },
-      { name: "송은아트스페이스", region: "강남구 청담동", memo: "현대미술 전시 공간" },
-      { name: "분더샵 청담", region: "강남구 청담동", memo: "편집숍 쇼핑" },
+      { name: "청담동 명품거리", region: "강남구 청담동", memo: "플래그십 스토어 거리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Cheongdam-dong.jpg" },
+      { name: "House of Dior 청담", region: "강남구 청담동", memo: "건축이 멋진 플래그십", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Cheongdam-dong.jpg" },
+      { name: "송은아트스페이스", region: "강남구 청담동", memo: "현대미술 전시 공간", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Cheongdam-dong.jpg" },
+      { name: "분더샵 청담", region: "강남구 청담동", memo: "편집숍 쇼핑", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Cheongdam-dong.jpg" },
     ],
   },
 
@@ -332,10 +332,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "서울숲",
     tags: ["자연", "산책", "데이트"],
     places: [
-      { name: "서울숲", region: "성동구 성수동1가", memo: "사슴 방사장과 너른 잔디밭" },
-      { name: "언더스탠드에비뉴", region: "성동구 성수동1가", memo: "컨테이너 복합 공간" },
-      { name: "성수연방", region: "성동구 성수동2가", memo: "옥상정원이 있는 카페" },
-      { name: "뚝섬한강공원", region: "성동구 자양동", memo: "한강 자전거 산책" },
+      { name: "서울숲", region: "성동구 성수동1가", memo: "사슴 방사장과 너른 잔디밭", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Seoul_Forest_in_May_2022_%281%29.jpg/960px-Seoul_Forest_in_May_2022_%281%29.jpg" },
+      { name: "언더스탠드에비뉴", region: "성동구 성수동1가", memo: "컨테이너 복합 공간", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Seoul_Forest_in_May_2022_%281%29.jpg/960px-Seoul_Forest_in_May_2022_%281%29.jpg" },
+      { name: "성수연방", region: "성동구 성수동2가", memo: "옥상정원이 있는 카페", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Seoul_Forest_in_May_2022_%281%29.jpg/960px-Seoul_Forest_in_May_2022_%281%29.jpg" },
+      { name: "뚝섬한강공원", region: "성동구 자양동", memo: "한강 자전거 산책", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Ttukseom_Hangang_Park_20260416_2.jpg/960px-Ttukseom_Hangang_Park_20260416_2.jpg" },
     ],
   },
 
@@ -347,10 +347,10 @@ export const SEED_TRIPS: SeedTrip[] = [
     region: "여의도",
     tags: ["야경", "산책", "데이트"],
     places: [
-      { name: "더현대 서울", region: "영등포구 여의도동", memo: "사운즈포레스트 실내 정원" },
-      { name: "여의도한강공원", region: "영등포구 여의도동", memo: "야경과 치맥 명소" },
-      { name: "물빛광장", region: "영등포구 여의도동", memo: "분수쇼가 열리는 광장" },
-      { name: "63스퀘어", region: "영등포구 여의도동", memo: "전망대에서 보는 한강" },
+      { name: "더현대 서울", region: "영등포구 여의도동", memo: "사운즈포레스트 실내 정원", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/The_Hyundai_Seoul_Yeoui-dong_3.jpg/960px-The_Hyundai_Seoul_Yeoui-dong_3.jpg" },
+      { name: "여의도한강공원", region: "영등포구 여의도동", memo: "야경과 치맥 명소", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Yeouido_Hangang_Park_seen_from_Dangsan_Railway_Bridge.jpg/960px-Yeouido_Hangang_Park_seen_from_Dangsan_Railway_Bridge.jpg" },
+      { name: "물빛광장", region: "영등포구 여의도동", memo: "분수쇼가 열리는 광장", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Yeouido_Park_230722.jpg/960px-Yeouido_Park_230722.jpg" },
+      { name: "63스퀘어", region: "영등포구 여의도동", memo: "전망대에서 보는 한강", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/63_Building.jpg/960px-63_Building.jpg" },
     ],
   },
 ]

@@ -289,15 +289,17 @@ function SortablePlaceItem({
               {isUploading ? "업로드 중…" : "사진 선택"}
             </button>
           )}
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleFileChange}
-          />
         </div>
       )}
+
+      {/* 항상 마운트 — imageOpen 여부와 무관하게 ref가 연결돼야 함 */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleFileChange}
+      />
 
       {/* 메모 섹션 */}
       {memoOpen && (

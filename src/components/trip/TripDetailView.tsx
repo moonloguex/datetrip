@@ -9,6 +9,7 @@
 // 마커 클릭 → 캐러셀 스크롤 (양방향 동기화)
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { KakaoMap } from "@/components/map/KakaoMap"
 import { useKakaoMap } from "@/components/map/KakaoMap"
@@ -54,6 +55,7 @@ export function TripDetailView({ trip, isOwner, isLiked, isAuthenticated, simila
   }))
 
   const activePlace = trip.places[activeIndex]
+  const hasAnyImage = trip.places.some((p) => p.imageUrl)
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)]">
@@ -74,8 +76,8 @@ export function TripDetailView({ trip, isOwner, isLiked, isAuthenticated, simila
         </KakaoMap>
       </div>
 
-      {/* 캐러셀 */}
-      {trip.places.length > 0 && (
+      {/* 캐러셀 — 이미지가 1개 이상인 코스에만 표시 */}
+      {hasAnyImage && (
         <div className="py-4 border-b bg-background shrink-0">
           <CourseImageCarousel
             places={trip.places.map((p) => ({
@@ -177,12 +179,40 @@ export function TripDetailView({ trip, isOwner, isLiked, isAuthenticated, simila
                 onClick={() => setActiveIndex(idx)}
               >
                 <div className="flex items-start gap-3">
-                  <span
-                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
-                    style={{ backgroundColor: color }}
-                  >
-                    {idx + 1}
-                  </span>
+                  {hasAnyImage ? (
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg">
+                      {place.imageUrl ? (
+                        <>
+                          <Image
+                            src={place.imageUrl}
+                            alt={place.name}
+                            fill
+                            className="object-cover"
+                            sizes="64px"
+                          />
+                          <span
+                            className="absolute left-1 top-1 z-10 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold text-white"
+                            style={{ backgroundColor: color }}
+                          >
+                            {idx + 1}
+                          </span>
+                        </>
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-violet-100 to-rose-100">
+                          <span className="text-xs font-bold" style={{ color }}>
+                            {idx + 1}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <span
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
+                      style={{ backgroundColor: color }}
+                    >
+                      {idx + 1}
+                    </span>
+                  )}
                   <div className="min-w-0 flex-1 space-y-1">
                     <div className="flex items-baseline gap-2">
                       <p className="truncate font-medium">{place.name}</p>

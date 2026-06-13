@@ -18,6 +18,8 @@ export interface SeedPlace {
   region: string
   /** 큐레이터 코멘트 (선택) */
   memo?: string
+  /** Vercel Blob 이미지 URL (선택) */
+  imageUrl?: string
 }
 
 export interface SeedTrip {

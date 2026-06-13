@@ -48,6 +48,7 @@ interface ResolvedPlace {
   latitude: number
   longitude: number
   memo: string | null
+  imageUrl: string | null
   order: number
 }
 
@@ -69,6 +70,7 @@ async function resolvePlace(
     latitude: parseFloat(kakao.y),
     longitude: parseFloat(kakao.x),
     memo: seedPlace.memo || null,
+    imageUrl: seedPlace.imageUrl || null,
     order: 0, // 호출자가 채움
   }
 }

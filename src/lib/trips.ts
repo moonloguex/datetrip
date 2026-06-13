@@ -57,17 +57,20 @@ export async function getTripById(id: string) {
 
 // slug로 1차 조회. 구 cuid URL 호환을 위해 실패 시 id로 fallback.
 export async function getTripBySlug(slugOrId: string) {
+  // Next.js 16 App Router는 한글 등 non-ASCII path segment를 percent-encoded 상태로
+  // params에 넘길 수 있음. DB slug와 비교 전 decode가 필요.
+  const decoded = decodeURIComponent(slugOrId)
   const TRIP_INCLUDE = {
     places: { orderBy: { order: "asc" as const } },
     author: { select: { id: true, nickname: true, image: true } },
   }
   const bySlug = await prisma.trip.findUnique({
-    where: { slug: slugOrId },
+    where: { slug: decoded },
     include: TRIP_INCLUDE,
   })
   if (bySlug) return bySlug
   return prisma.trip.findUnique({
-    where: { id: slugOrId },
+    where: { id: decoded },
     include: TRIP_INCLUDE,
   })
 }

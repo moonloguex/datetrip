@@ -104,10 +104,13 @@ export function ExploreLayout({
     return result
   }, [sortedTrips, searchQuery, activeTags])
 
-  // 필터 바뀌면 더 보기 카운트 초기화
-  useEffect(() => {
+  // 필터 바뀌면 더 보기 카운트 초기화.
+  // effect 대신 렌더 중 이전 값과 비교해 즉시 반영 (React "Adjusting state" 패턴 — 이중 렌더 회피)
+  const [prevFilterKey, setPrevFilterKey] = useState({ searchQuery, activeTags })
+  if (prevFilterKey.searchQuery !== searchQuery || prevFilterKey.activeTags !== activeTags) {
+    setPrevFilterKey({ searchQuery, activeTags })
     setVisibleCount(10)
-  }, [searchQuery, activeTags])
+  }
 
   const visibleTrips = useMemo(
     () => filteredTrips.slice(0, visibleCount),

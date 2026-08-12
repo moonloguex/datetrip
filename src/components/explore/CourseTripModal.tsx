@@ -153,10 +153,13 @@ function ModalContent({
   const [isLikePending, setIsLikePending] = useState(false)
   const [likeAnimating, setLikeAnimating] = useState(false)
 
-  // 부모 컴포넌트가 revalidatePath 후 새 likedTripIds를 내려줄 때 동기화
-  useEffect(() => {
+  // 부모 컴포넌트가 revalidatePath 후 새 likedTripIds를 내려줄 때 동기화.
+  // effect 대신 렌더 중 이전 값과 비교해 즉시 반영 (React "Adjusting state" 패턴 — 이중 렌더 회피)
+  const [syncedLikeSource, setSyncedLikeSource] = useState({ likedTripIds, tripId: trip.id })
+  if (syncedLikeSource.likedTripIds !== likedTripIds || syncedLikeSource.tripId !== trip.id) {
+    setSyncedLikeSource({ likedTripIds, tripId: trip.id })
     setLiked(likedTripIds.has(trip.id))
-  }, [likedTripIds, trip.id])
+  }
 
   async function handleLike() {
     if (!isAuthenticated) {
@@ -377,7 +380,7 @@ function ModalContent({
                     </p>
                     {place.memo && (
                       <p className="text-[11px] text-muted-foreground mt-1 line-clamp-2 italic">
-                        "{place.memo}"
+                        &ldquo;{place.memo}&rdquo;
                       </p>
                     )}
                   </div>

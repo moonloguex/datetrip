@@ -18,16 +18,25 @@ export function PlaceSearch({ onAdd, addedPlaceIds }: Props) {
   const [isLoading, setIsLoading] = useState(false)
   const debouncedQuery = useDebounce(query, 300)
 
-  useEffect(() => {
+  // debouncedQuery가 빈 값으로 바뀌면 결과 초기화.
+  // effect 대신 렌더 중 이전 값과 비교해 즉시 반영 (React "Adjusting state" 패턴 — 이중 렌더 회피)
+  const [prevDebouncedQuery, setPrevDebouncedQuery] = useState(debouncedQuery)
+  if (prevDebouncedQuery !== debouncedQuery) {
+    setPrevDebouncedQuery(debouncedQuery)
     if (!debouncedQuery.trim()) {
       setResults([])
+    }
+  }
+
+  useEffect(() => {
+    if (!debouncedQuery.trim()) {
       return
     }
 
     let cancelled = false
-    setIsLoading(true)
 
     const fetchPlaces = async () => {
+      setIsLoading(true)
       try {
         const res = await fetch(
           `/api/places/search?q=${encodeURIComponent(debouncedQuery)}`,

@@ -18,7 +18,10 @@ export function PreferenceBanner() {
   const [isDismissed, setIsDismissed] = useState(true)
 
   useEffect(() => {
+    // localStorage는 서버에 없어 초기 렌더에 포함할 수 없음 — 마운트 후 1회 보정.
+    // 정당한 예외: hydration mismatch를 피하려는 브라우저 전용 스토리지 동기화.
     try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsDismissed(localStorage.getItem(DISMISSAL_KEY) === "true")
     } catch {
       setIsDismissed(false)

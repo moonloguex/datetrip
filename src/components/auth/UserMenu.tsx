@@ -3,6 +3,7 @@
 // dropdown-menu가 클라이언트 인터랙션을 요구하므로 "use client".
 // 서버 액션은 props로 받아서 form action에 연결.
 
+import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -40,6 +41,11 @@ export function UserMenu({ user, signOutAction }: Readonly<Props>) {
           )}
         </div>
         <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <Link href="/me" className="w-full">
+            마이페이지
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>
           <form action={signOutAction} className="w-full">
             <button type="submit" className="w-full cursor-default text-left">

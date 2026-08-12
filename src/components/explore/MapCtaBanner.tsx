@@ -36,9 +36,9 @@ export function MapCtaBanner() {
 
   return (
     <div className="px-4 pointer-events-none">
-      <div className="flex justify-center">
+      <div className="flex justify-center animate-slide-up">
         <div className="pointer-events-auto flex items-center gap-2 sm:gap-3 rounded-2xl sm:rounded-full border bg-background/95 px-3 sm:px-4 py-2 shadow-lg backdrop-blur-sm max-w-[calc(100vw-2rem)]">
-          <span className="text-[#E91E63] text-sm select-none shrink-0">◆</span>
+          <span className="text-dusk-rose text-sm select-none shrink-0">◆</span>
           <p className="text-sm font-medium leading-snug">
             우리만의 코스, 지금 만들어보세요
           </p>

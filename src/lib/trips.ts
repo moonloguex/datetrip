@@ -36,7 +36,7 @@ export async function getPublicTrips(options: GetPublicTripsOptions = {}) {
         select: { id: true, nickname: true, image: true },
       },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: [{ likeCount: "desc" }, { createdAt: "desc" }],
   })
 }
 

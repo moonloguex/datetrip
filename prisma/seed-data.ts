@@ -353,4 +353,123 @@ export const SEED_TRIPS: SeedTrip[] = [
       { name: "63스퀘어", region: "영등포구 여의도동", memo: "전망대에서 보는 한강", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/63_Building.jpg/960px-63_Building.jpg" },
     ],
   },
+
+  // ─── 반포 (1) ───
+  {
+    slug: "banpo-night-walk-v1",
+    title: "반포 야경 한강 산책",
+    description: "달빛무지개분수와 세빛섬 야경을 따라 걷는 반포 나이트 코스",
+    region: "반포",
+    tags: ["야경", "산책", "데이트"],
+    places: [
+      { name: "반포한강공원", region: "서초구 반포동", memo: "치맥과 피크닉의 성지. 한강뷰 명소", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Banpo_Hangang_Park_%28%EC%84%9C%EC%B4%88%EA%B5%AC_2020%29.jpg/960px-Banpo_Hangang_Park_%28%EC%84%9C%EC%B4%88%EA%B5%AC_2020%29.jpg" },
+      { name: "달빛무지개분수", region: "서초구 반포동", memo: "세계 최장 교량 분수. 야간 분수 쇼가 장관", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Banpo_Bridge_Moonlight_Rainbow_Fountain_02.jpg/960px-Banpo_Bridge_Moonlight_Rainbow_Fountain_02.jpg" },
+      { name: "세빛섬", region: "서초구 반포동", memo: "한강 위 세 개 인공섬. 야경이 특히 아름다움", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Sevit-do_Island_in_Seoul_Korea.jpg/960px-Sevit-do_Island_in_Seoul_Korea.jpg" },
+      { name: "잠수교", region: "서초구 반포동", memo: "걸어서 한강 위를 건너는 색다른 경험", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Banpo_Hangang_Park_%28%EC%84%9C%EC%B4%88%EA%B5%AC_2020%29.jpg/960px-Banpo_Hangang_Park_%28%EC%84%9C%EC%B4%88%EA%B5%AC_2020%29.jpg" },
+    ],
+  },
+
+  // ─── 광화문 (1) ───
+  {
+    slug: "gyeongbokgung-history-v1",
+    title: "경복궁·광화문 역사 데이트",
+    description: "조선 정궁 경복궁부터 광화문광장, 청와대까지 역사와 현재가 공존하는 코스",
+    region: "광화문",
+    tags: ["전통", "산책", "예술"],
+    places: [
+      { name: "경복궁", region: "종로구 세종로", memo: "조선의 법궁. 아침 수문장 교대식도 놓치지 말 것", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/%EA%B2%BD%EB%B3%B5%EA%B6%81.jpg/960px-%EA%B2%BD%EB%B3%B5%EA%B6%81.jpg" },
+      { name: "국립민속박물관", region: "종로구 세종로", memo: "경복궁 내 무료 입장 민속 박물관", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/National_Folk_Museum_of_Korea.jpg/960px-National_Folk_Museum_of_Korea.jpg" },
+      { name: "청와대", region: "종로구 청와대로", memo: "2022년 이후 전면 개방. 잔디밭과 본관이 볼거리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Cheong_Wa_Dae_main_building.jpg/960px-Cheong_Wa_Dae_main_building.jpg" },
+      { name: "광화문광장", region: "종로구 세종로", memo: "이순신 장군상·세종대왕상 앞에서 산책 마무리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Seoul_Gwanghwamun_Square_20230401.jpg/960px-Seoul_Gwanghwamun_Square_20230401.jpg" },
+    ],
+  },
+
+  // ─── 대학로 (1) ───
+  {
+    slug: "daehangno-theater-date-v1",
+    title: "대학로 연극·낙산 데이트",
+    description: "소극장 공연 전후로 마로니에공원과 낙산 성곽길을 걷는 문화 데이트",
+    region: "대학로",
+    tags: ["예술", "활기찬", "산책"],
+    places: [
+      { name: "혜화역", region: "종로구 혜화동", memo: "대학로 탐방의 시작점. 4번 출구에서 바로 대학로", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Marronnier_Park%2C_Seoul.jpg/960px-Marronnier_Park%2C_Seoul.jpg" },
+      { name: "마로니에공원", region: "종로구 동숭동", memo: "대학로의 심장. 주말엔 거리 공연이 열림", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Marronnier_Park%2C_Seoul.jpg/960px-Marronnier_Park%2C_Seoul.jpg" },
+      { name: "서울시립대학교", region: "동대문구 전농동", memo: "낙산 성곽으로 이어지는 연결 지점", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Marronnier_Park%2C_Seoul.jpg/960px-Marronnier_Park%2C_Seoul.jpg" },
+      { name: "이화동 벽화마을", region: "종로구 이화동", memo: "알록달록 골목 벽화. 포토 스팟으로 인기", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Marronnier_Park%2C_Seoul.jpg/960px-Marronnier_Park%2C_Seoul.jpg" },
+    ],
+  },
+
+  // ─── 이촌 (1) ───
+  {
+    slug: "ichon-museum-walk-v1",
+    title: "이촌 박물관 데이트",
+    description: "국립중앙박물관부터 한강까지, 지적 자극과 자연을 함께 즐기는 반나절 코스",
+    region: "이촌",
+    tags: ["전통", "예술", "조용한"],
+    places: [
+      { name: "국립중앙박물관", region: "용산구 용산동6가", memo: "한국 최대 박물관. 상설 전시만도 반나절", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/National_Museum_of_Korea.jpg/960px-National_Museum_of_Korea.jpg" },
+      { name: "국립한글박물관", region: "용산구 용산동6가", memo: "국립중앙박물관 옆 무료 입장. 콘텐츠가 풍부", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/National_Museum_of_Korea.jpg/960px-National_Museum_of_Korea.jpg" },
+      { name: "이촌한강공원", region: "용산구 이촌동", memo: "박물관 관람 후 걷기 좋은 한강변", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Yeouido_Hangang_Park_seen_from_Dangsan_Railway_Bridge.jpg/960px-Yeouido_Hangang_Park_seen_from_Dangsan_Railway_Bridge.jpg" },
+    ],
+  },
+
+  // ─── 강동 (1) ───
+  {
+    slug: "olympic-park-nature-v1",
+    title: "올림픽공원 자연 데이트",
+    description: "소마미술관과 88호수, 몽촌토성을 잇는 드넓은 공원 피크닉 코스",
+    region: "강동",
+    tags: ["자연", "산책", "예술"],
+    places: [
+      { name: "올림픽공원", region: "송파구 방이동", memo: "100만 평 너른 공원. 들꽃과 조각 작품이 가득", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Seoul_Olympic_Park_20240929.jpg/960px-Seoul_Olympic_Park_20240929.jpg" },
+      { name: "소마미술관", region: "송파구 방이동", memo: "올림픽공원 내 조각 공원과 연결된 미술관", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Seoul_Olympic_Park_20240929.jpg/960px-Seoul_Olympic_Park_20240929.jpg" },
+      { name: "몽촌토성", region: "송파구 방이동", memo: "백제 시대 토성. 공원 안에서 역사 산책", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Seoul_Olympic_Park_20240929.jpg/960px-Seoul_Olympic_Park_20240929.jpg" },
+      { name: "올림픽공원 88호수", region: "송파구 올림픽로", memo: "공원 중앙 호수. 오리배 타기 가능", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Seoul_Olympic_Park_20240929.jpg/960px-Seoul_Olympic_Park_20240929.jpg" },
+    ],
+  },
+
+  // ─── 수원 (1) ───
+  {
+    slug: "suwon-hwaseong-v1",
+    title: "수원 화성 역사 투어",
+    description: "유네스코 세계문화유산 수원화성 성곽길과 행궁동 골목, 팔달문 시장을 잇는 코스",
+    region: "수원",
+    tags: ["전통", "산책", "자연"],
+    places: [
+      { name: "수원화성", region: "수원시 팔달구 매향동", memo: "유네스코 세계문화유산. 성곽 일주 약 5.7km", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Korea-Suwon-Hwaseong-01.jpg/960px-Korea-Suwon-Hwaseong-01.jpg" },
+      { name: "화홍문", region: "수원시 팔달구 북수동", memo: "수원천 위에 세운 수문. 사진 찍기 좋은 포인트", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Hwahongmun_at_Hwaseong_Fortress%2C_Suwon.jpg/960px-Hwahongmun_at_Hwaseong_Fortress%2C_Suwon.jpg" },
+      { name: "행궁동 벽화마을", region: "수원시 팔달구 행궁동", memo: "수원화성 옆 감성 골목. 카페와 벽화가 가득", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Korea-Suwon-Hwaseong-01.jpg/960px-Korea-Suwon-Hwaseong-01.jpg" },
+      { name: "팔달문시장", region: "수원시 팔달구 팔달로2가", memo: "수원 최대 전통시장. 순대국·족발이 명물", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Korea-Suwon-Hwaseong-01.jpg/960px-Korea-Suwon-Hwaseong-01.jpg" },
+    ],
+  },
+
+  // ─── 인천 (1) ───
+  {
+    slug: "incheon-gaehangro-v1",
+    title: "인천 개항로 감성 투어",
+    description: "개화기 건축과 차이나타운, 신포시장이 어우러진 인천의 타임슬립 코스",
+    region: "인천",
+    tags: ["트렌디", "전통", "미식"],
+    places: [
+      { name: "인천개항박물관", region: "인천 중구 중앙동1가", memo: "개항기 역사가 담긴 박물관. 건물 자체가 볼거리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Incheon_Open_Port_Museum.jpg/960px-Incheon_Open_Port_Museum.jpg" },
+      { name: "인천 차이나타운", region: "인천 중구 북성동1가", memo: "짜장면 발상지. 100년 넘은 화교 거리", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Incheon_Chinatown_2019.jpg/960px-Incheon_Chinatown_2019.jpg" },
+      { name: "자유공원", region: "인천 중구 자유공원로", memo: "인천 최초의 공원. 항구 전망이 좋음", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Incheon_Chinatown_2019.jpg/960px-Incheon_Chinatown_2019.jpg" },
+      { name: "신포국제시장", region: "인천 중구 신포동", memo: "닭강정과 만두가 유명한 인천 대표 전통시장", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Incheon_Chinatown_2019.jpg/960px-Incheon_Chinatown_2019.jpg" },
+    ],
+  },
+
+  // ─── 성북 (1) ───
+  {
+    slug: "seongbuk-culture-walk-v1",
+    title: "성북동 문화 산책",
+    description: "간송미술관과 한용운 가옥 심우장, 한옥 찻집 수연산방을 잇는 고즈넉한 성북동 산책",
+    region: "성북",
+    tags: ["조용한", "예술", "전통"],
+    places: [
+      { name: "간송미술관", region: "성북구 성북동", memo: "한국 최초 사립미술관. 봄·가을 기획전 기간에 개방", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Gansong_Museum.jpg/960px-Gansong_Museum.jpg" },
+      { name: "심우장", region: "성북구 성북동", memo: "독립운동가 한용운 선생의 가옥. 등록문화재", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Gansong_Museum.jpg/960px-Gansong_Museum.jpg" },
+      { name: "수연산방", region: "성북구 성북동", memo: "소설가 이태준 옛집을 개조한 한옥 찻집", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Gansong_Museum.jpg/960px-Gansong_Museum.jpg" },
+      { name: "성북동 문화재마을", region: "성북구 성북동", memo: "대사관과 근현대 문화재가 공존하는 조용한 골목", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Gansong_Museum.jpg/960px-Gansong_Museum.jpg" },
+    ],
+  },
 ]
